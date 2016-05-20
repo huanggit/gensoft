@@ -1,4 +1,4 @@
-package com.gensoft.web.domain;
+package com.gensoft.dao.user;
 
 /**
  * Created by alan on 16-5-18.
@@ -6,8 +6,6 @@ package com.gensoft.web.domain;
 
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.Repository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.data.jpa.repository.Query;
 
 @Transactional

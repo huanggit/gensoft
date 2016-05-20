@@ -18,4 +18,4 @@ include 'services:webservice'
 
 rootProject.name = 'gensoft'
 
-include 'core','web','management','realtime'
+include 'core','dao','saasapi','management','realtime'

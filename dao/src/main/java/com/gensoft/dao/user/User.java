@@ -1,4 +1,4 @@
-package com.gensoft.web.domain;
+package com.gensoft.dao.user;
 
 /**
  * Created by alan on 16-5-18.

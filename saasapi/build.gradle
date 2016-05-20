@@ -1,0 +1,12 @@
+archivesBaseName = 'saasapi'
+
+dependencies {
+	compile project(':dao')
+	compile project(':core')
+	compile(
+	)
+}
+
+bootRepackage {
+	mainClass = 'com.gensoft.Application'
+}

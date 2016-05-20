@@ -1,6 +1,7 @@
 archivesBaseName = 'realtime'
 
 dependencies {
+    compile project(':dao')
     compile project(':core')
     compile(
             'org.springframework.boot:spring-boot-starter-amqp'
@@ -8,5 +9,5 @@ dependencies {
 }
 
 bootRepackage {
-    mainClass = 'com.gensoft.realtime.Application'
+    mainClass = 'com.gensoft.Application'
 }

@@ -1,6 +1,7 @@
 archivesBaseName = 'management'
 
 dependencies {
+    compile project(':dao')
     compile project(':core')
     compile(
             'org.springframework.boot:spring-boot-starter-velocity'
@@ -8,5 +9,5 @@ dependencies {
 }
 
 bootRepackage {
-    mainClass = 'com.gensoft.management.Application'
+    mainClass = 'com.gensoft.Application'
 }

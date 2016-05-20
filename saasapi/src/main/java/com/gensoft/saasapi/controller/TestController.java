@@ -1,7 +1,7 @@
-package com.gensoft.web.controller;
+package com.gensoft.saasapi.controller;
 
-import com.gensoft.web.domain.User;
-import com.gensoft.web.domain.UserRepository;
+import com.gensoft.dao.user.User;
+import com.gensoft.dao.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
