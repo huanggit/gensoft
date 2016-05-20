@@ -1,0 +1,12 @@
+archivesBaseName = 'web'
+
+dependencies {
+	compile project(':core')
+	compile(
+	)
+}
+
+bootRepackage {
+	mainClass = 'com.gensoft.web.Application'
+	excludeDevtools = true
+}

@@ -1,0 +1,10 @@
+<html>
+
+<body>
+    Time: ${time}
+
+
+    Message: ${message}
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+spring.profiles.active: dev
+
+--- #------------------------- dev ----------------------------
+debug: true
+
+--- #------------------------- production ----------------------------
+#logging.path: /var/log
+#logging.level.root: INFO
+
+--- #------------------------- program ----------------------------
+spring:
+  rabbitmq:
+    host: localhost
+    port: 5672
+    dynamic: true
+    listener:
+      acknowledge-mode: auto
+      auto-startup: true
+      prefetch: 1
+    requested-heartbeat: 15
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 123456
+    max-wait: 10000
+    max-active: 50
+  jpa:
+    database: MYSQL
+    #show-sql: true
+    hibernate:
+      #ddl-auto: update
+      naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
+
+management:
+  port: 8082
+  address: localhost
+#  security:
+#    enabled: false
+
+monitor:
+  homeMessage: |
+    GenSoft Realtime has started successfully!
+    The evn is [${spring.profiles.active}]
+
+server:
+  port: 8092
+  address: localhost
+

@@ -1,0 +1,48 @@
+spring.profiles.active: dev
+
+--- #------------------------- dev ----------------------------
+debug: true
+
+--- #------------------------- production ----------------------------
+#logging.path: /var/log
+#logging.level.root: INFO
+
+--- #------------------------- program ----------------------------
+monitor:
+  homeMessage: |
+    GenSoft Management has started successfully!
+    The evn is [${spring.profiles.active}]
+
+server:
+  port: 8093
+  address: localhost
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test
+    username: root
+    password: 123456
+    max-wait: 10000
+    max-active: 50
+  jpa:
+    database: MYSQL
+    #show-sql: true
+    hibernate:
+      #ddl-auto: update
+      naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
+  velocity:
+    resourceLoaderPath: classpath:/velocity/
+    suffix: ".vm"
+    charset: UTF-8
+    content-type: text/html
+    properties:
+      input.encoding: UTF-8
+      output.encoding: UTF-8
+
+management:
+  port: 8083
+  address: localhost
+#  security:
+#    enabled: false
+
+
