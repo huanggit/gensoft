@@ -15,7 +15,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @NotNull
     private String username;
@@ -30,7 +30,13 @@ public class User extends BaseEntity{
 
     private Long bindDeviceId;
 
+    private String plateNo;
+
     //setter & getters
+    public String getPlateNo() { return plateNo; }
+
+    public void setPlateNo(String plateNo) { this.plateNo = plateNo; }
+
     public String getUsername() {
         return username;
     }

@@ -9,4 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/friends")
 @RestController
 public class FriendsController {
+
+
 }

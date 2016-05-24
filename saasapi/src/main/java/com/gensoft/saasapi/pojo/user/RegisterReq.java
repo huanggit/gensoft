@@ -1,16 +1,27 @@
 package com.gensoft.saasapi.pojo.user;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by alan on 16-5-24.
  */
 public class RegisterReq {
+    @NotNull
     private String username;
+    @NotNull
     private String password;
+    @NotNull
     private String repeatPassword;
+    @NotNull
     private String nickname;
+    @NotNull
     private long mobile;
-    private String logo;
+    @NotNull
     private String verificationCode;
+
+    private String plateNo;
+
+    private String logo;
 
     public String getUsername() {
         return username;
@@ -66,5 +77,13 @@ public class RegisterReq {
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
+    }
+
+    public String getPlateNo() {
+        return plateNo;
+    }
+
+    public void setPlateNo(String plateNo) {
+        this.plateNo = plateNo;
     }
 }

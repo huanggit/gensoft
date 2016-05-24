@@ -1,6 +1,7 @@
 package com.gensoft.saasapi.controller;
 
 import com.gensoft.saasapi.pojo.user.GetVerificationCodeResp;
+import com.gensoft.saasapi.pojo.user.ModifyUserInfoReq;
 import com.gensoft.saasapi.pojo.user.RegisterReq;
 import com.gensoft.saasapi.pojo.user.ResetPasswordReq;
 import com.gensoft.saasapi.service.UserService;
@@ -29,6 +30,7 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     ApiResult login(@RequestParam String username, @RequestParam String password) {
+        //TODO
         return ApiResult.successInstance();
     }
 
@@ -43,7 +45,7 @@ public class UserController {
 
     @RequestMapping(value = "/getVerificationCode", method = RequestMethod.POST)
     GetVerificationCodeResp getVerificationCode(@RequestParam long mobile) {
-        //Todo
+        //TODO
         String verificationCode = "";
         GetVerificationCodeResp resp = new GetVerificationCodeResp();
         resp.setVerificationCode(verificationCode);
@@ -53,7 +55,14 @@ public class UserController {
 
     @RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
     ApiResult resetPassword(@RequestBody ResetPasswordReq req) {
-
+        //TODO
         return ApiResult.successInstance();
     }
+
+    @RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
+    ApiResult modifyInfo(@RequestBody ModifyUserInfoReq req) {
+        //TODO
+        return ApiResult.successInstance();
+    }
+
 }
