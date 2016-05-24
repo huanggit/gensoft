@@ -36,6 +36,8 @@ public abstract class BaseEntity {
     public void setId(long id) {
         this.id = id;
     }
+    public Integer getStatus() { return status; }
+    public void setStatus(Integer status) { this.status = status; }
     public long getCreateById() {
         return createById;
     }

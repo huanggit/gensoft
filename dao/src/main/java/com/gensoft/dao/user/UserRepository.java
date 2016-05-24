@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
-    public User findByName(String name);
+    public User findByUsername(String username);
 
     @Query("select s from User s where id=?1")
     public User xx(Long x);

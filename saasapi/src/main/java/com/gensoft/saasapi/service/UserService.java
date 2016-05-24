@@ -1,6 +1,7 @@
-package com.gensoft.saasapi.service.user;
+package com.gensoft.saasapi.service;
 
 import com.gensoft.dao.user.User;
+import com.gensoft.saasapi.pojo.user.RegisterReq;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     @Transactional
-    public void register(User user) {
+    public void register(RegisterReq user) {
         //用户名是否重复
         // bindDeviceId 不为空，去device表查是否存在
     }

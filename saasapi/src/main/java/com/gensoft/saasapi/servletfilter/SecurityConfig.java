@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/user/register").permitAll()
 //                .antMatchers("/visitor/**").access("hasRole('OWNER') or hasRole('VISITOR')")
 //                .anyRequest().hasRole("USER")
-                .anyRequest().authenticated()
+                .anyRequest().permitAll()//.authenticated()
                 .and().formLogin()
                     //.loginPage("/user/login")
                     .permitAll()

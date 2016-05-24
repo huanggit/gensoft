@@ -1,36 +1,17 @@
-package com.gensoft.dao.user;
+package com.gensoft.saasapi.pojo.user;
 
 /**
- * Created by alan on 16-5-18.
+ * Created by alan on 16-5-24.
  */
-
-import com.gensoft.dao.BaseEntity;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-@Entity
-@Table(name = "users")
-public class User extends BaseEntity{
-
-    @NotNull
+public class RegisterReq {
     private String username;
-    @NotNull
     private String password;
-    @NotNull
+    private String repeatPassword;
     private String nickname;
-    @NotNull
-    private Long mobile;
-
+    private long mobile;
     private String logo;
+    private String verificationCode;
 
-    private Long bindDeviceId;
-
-    //setter & getters
     public String getUsername() {
         return username;
     }
@@ -47,6 +28,13 @@ public class User extends BaseEntity{
         this.password = password;
     }
 
+    public String getRepeatPassword() {
+        return repeatPassword;
+    }
+
+    public void setRepeatPassword(String repeatPassword) {
+        this.repeatPassword = repeatPassword;
+    }
 
     public String getNickname() {
         return nickname;
@@ -56,11 +44,11 @@ public class User extends BaseEntity{
         this.nickname = nickname;
     }
 
-    public Long getMobile() {
+    public long getMobile() {
         return mobile;
     }
 
-    public void setMobile(Long mobile) {
+    public void setMobile(long mobile) {
         this.mobile = mobile;
     }
 
@@ -72,11 +60,11 @@ public class User extends BaseEntity{
         this.logo = logo;
     }
 
-    public Long getBindDeviceId() {
-        return bindDeviceId;
+    public String getVerificationCode() {
+        return verificationCode;
     }
 
-    public void setBindDeviceId(Long bindDeviceId) {
-        this.bindDeviceId = bindDeviceId;
+    public void setVerificationCode(String verificationCode) {
+        this.verificationCode = verificationCode;
     }
-} // class User
+}
