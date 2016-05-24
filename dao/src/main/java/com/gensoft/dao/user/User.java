@@ -4,6 +4,8 @@ package com.gensoft.dao.user;
  * Created by alan on 16-5-18.
  */
 
+import com.gensoft.dao.BaseEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,44 +15,23 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "users")
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+public class User extends BaseEntity{
+
     @NotNull
-    private String email;
+    private String username;
     @NotNull
-    private String name;
+    private String password;
+    @NotNull
+    private Integer status;
+    @NotNull
+    private String nickname;
+    @NotNull
+    private Long mobile;
 
-    // PUBLIC METHODS
-    public User() { }
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-    // Getter and setter methods
+    private String logo;
 
-    public long getId() {
-        return id;
-    }
+    private Long bindDeviceId;
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    //
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 } // class User

@@ -8,9 +8,24 @@ debug: true
 #logging.level.root: INFO
 
 --- #------------------------- program ----------------------------
+monitor:
+  homeMessage: |
+    GenSoft Realtime has started successfully!
+    The evn is [${spring.profiles.active}]
+
+server:
+  port: 8092
+  address: localhost
+
+management:
+  port: 8082
+  address: localhost
+#  security:
+#    enabled: false
+
 spring:
   rabbitmq:
-    host: localhost
+    host: 192.168.1.105
     port: 5672
     dynamic: true
     listener:
@@ -19,7 +34,7 @@ spring:
       prefetch: 1
     requested-heartbeat: 15
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://192.168.1.105:3306/test
     username: root
     password: 123456
     max-wait: 10000
@@ -30,19 +45,4 @@ spring:
     hibernate:
       #ddl-auto: update
       naming-strategy: "org.hibernate.cfg.ImprovedNamingStrategy"
-
-management:
-  port: 8082
-  address: localhost
-#  security:
-#    enabled: false
-
-monitor:
-  homeMessage: |
-    GenSoft Realtime has started successfully!
-    The evn is [${spring.profiles.active}]
-
-server:
-  port: 8092
-  address: localhost
 

@@ -17,9 +17,15 @@ server:
   port: 8093
   address: localhost
 
+management:
+  port: 8083
+  address: localhost
+#  security:
+#    enabled: false
+
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/test
+    url: jdbc:mysql://192.168.1.105:3306/test
     username: root
     password: 123456
     max-wait: 10000
@@ -39,10 +45,5 @@ spring:
       input.encoding: UTF-8
       output.encoding: UTF-8
 
-management:
-  port: 8083
-  address: localhost
-#  security:
-#    enabled: false
 
 

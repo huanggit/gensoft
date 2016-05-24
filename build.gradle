@@ -40,7 +40,6 @@ subprojects {
                 'org.springframework.boot:spring-boot-starter-data-jpa',
                 'org.springframework.boot:spring-boot-starter-actuator',
                 'org.springframework.boot:spring-boot-starter-cache',
-                //'org.springframework.boot:spring-boot-starter-security',
                 //'org.springframework.boot:spring-boot-starter-redis',
                 'mysql:mysql-connector-java:6.0.2'
         )

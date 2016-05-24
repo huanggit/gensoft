@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by alan on 16-5-18.
  */
 @RestController
-public class TestController {
+public class SystemController {
 
-    @Autowired
-    private UserRepository userRepository;
 
     @Value("${monitor.homeMessage}")
     private String homeMessage;
@@ -27,18 +25,5 @@ public class TestController {
         return homeMessage;
     }
 
-    @RequestMapping("/testSave")
-    String testsave() {
-        User user = new User("test", "test@test");
-        userRepository.save(user);
-        return "success";
-    }
-
-
-    @RequestMapping("/testGet/{userId}")
-    User testget(@PathVariable Long userId) {
-        User user = userRepository.xx(userId);
-        return user;
-    }
 }
 
