@@ -1,7 +1,7 @@
 spring.profiles.active: dev
 
 --- #------------------------- dev ----------------------------
-#debug: true
+debug: true
 
 
 
@@ -17,7 +17,7 @@ monitor:
 
 server:
   port: 8091
-  address: localhost
+  address: 192.168.1.105
   contextPath: /
 
 management:

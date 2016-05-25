@@ -1,1 +1,7 @@
 archivesBaseName = 'core'
+
+dependencies {
+    compile project(':dao')
+    compile(
+    )
+}

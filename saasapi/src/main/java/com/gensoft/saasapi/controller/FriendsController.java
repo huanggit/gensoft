@@ -1,6 +1,11 @@
 package com.gensoft.saasapi.controller;
 
+import com.gensoft.core.annotation.Login;
+import com.gensoft.core.pojo.UserInfo;
+import com.gensoft.core.web.ApiResult;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -10,5 +15,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class FriendsController {
 
+    @RequestMapping(value = "/listMine", method = RequestMethod.GET)
+    ApiResult listMine(@Login UserInfo userInfo) {
+        //userService.register(req);
+        return ApiResult.successInstance();
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    ApiResult add(@Login UserInfo userInfo, @RequestParam String friendId) {
+        //userService.register(req);
+        return ApiResult.successInstance();
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    ApiResult delete(@Login UserInfo userInfo, @RequestParam String friendId) {
+        //userService.register(req);
+        return ApiResult.successInstance();
+    }
 
 }

@@ -4,7 +4,6 @@ dependencies {
 	compile project(':dao')
 	compile project(':core')
 	compile(
-			'org.springframework.boot:spring-boot-starter-security'
 	)
 }
 
