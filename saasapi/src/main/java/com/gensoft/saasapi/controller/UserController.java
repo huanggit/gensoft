@@ -4,6 +4,7 @@ import com.gensoft.core.annotation.AnonymousAccess;
 import com.gensoft.core.annotation.Login;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.dao.user.User;
+import com.gensoft.saasapi.pojo.user.LoginReq;
 import com.gensoft.saasapi.pojo.user.ModifyUserInfoReq;
 import com.gensoft.saasapi.pojo.user.RegisterReq;
 import com.gensoft.saasapi.pojo.user.ResetPasswordReq;
@@ -35,9 +36,9 @@ public class UserController {
     private static final String failedLogin = "用户名密码不正确";
     @AnonymousAccess
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    ApiResult login(HttpServletRequest request, @RequestParam String username, @RequestParam String password) {
-        User user = userService.getUserByName(username);
-        if (user == null || !password.equals(user.getPassword()))
+    ApiResult login(HttpServletRequest request, @RequestBody LoginReq loginReq) {
+        User user = userService.getUserByName(loginReq.getUsername());
+        if (user == null || !user.getPassword().equals(loginReq.getPassword()))
             return ApiResult.failedInstance(failedLogin);
         //
         UserInfo userInfo = new UserInfo(user.getId(), user.getBindDeviceId());

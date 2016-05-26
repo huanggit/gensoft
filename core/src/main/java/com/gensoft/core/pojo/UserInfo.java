@@ -1,9 +1,11 @@
 package com.gensoft.core.pojo;
 
+import java.io.Serializable;
+
 /**
  * Created by alan on 16-5-25.
  */
-public class UserInfo {
+public class UserInfo implements Serializable{
     private Long id;
     private Long deviceId;
 

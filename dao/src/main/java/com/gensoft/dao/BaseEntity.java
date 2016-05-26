@@ -14,34 +14,33 @@ import javax.validation.constraints.NotNull;
 @MappedSuperclass
 public abstract class BaseEntity {
     /**状态有效*/
-    public static final int STATUS_VALID = 1;
+    public static final Integer STATUS_VALID = 1;
     /**状态无效*/
-    public static final int STATUS_NO_VALID = 0;
+    public static final Integer STATUS_NO_VALID = 0;
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    protected long id;
+    protected Long id;
     //0:无效 1:有效
-    @NotNull
-    protected int status;
+    protected Integer status;
     //创建信息
-    protected long createById;
+    protected Long createById;
     protected Date createDate;
-    protected long updateById;
+    protected Long updateById;
     protected Date updateDate;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
     public Integer getStatus() { return status; }
     public void setStatus(Integer status) { this.status = status; }
-    public long getCreateById() {
+    public Long getCreateById() {
         return createById;
     }
-    public void setCreateById(long createById) {
+    public void setCreateById(Long createById) {
         this.createById = createById;
     }
     public Date getCreateDate() {
@@ -50,10 +49,10 @@ public abstract class BaseEntity {
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
-    public long getUpdateById() {
+    public Long getUpdateById() {
         return updateById;
     }
-    public void setUpdateById(long updateById) {
+    public void setUpdateById(Long updateById) {
         this.updateById = updateById;
     }
     public Date getUpdateDate() {

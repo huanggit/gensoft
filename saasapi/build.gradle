@@ -7,6 +7,15 @@ dependencies {
 	)
 }
 
+sourceSets {
+	main {
+		resources {
+			exclude '**/static/*'
+			exclude 'static'
+		}
+	}
+}
+
 bootRepackage {
 	mainClass = 'com.gensoft.Application'
 }

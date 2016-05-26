@@ -3,6 +3,8 @@ package com.gensoft.saasapi.controller;
 import com.gensoft.core.annotation.Login;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
+import com.gensoft.saasapi.service.UserFriendService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,7 +15,10 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/friends")
 @RestController
-public class FriendsController {
+public class UserFriendsController {
+
+    @Autowired
+    private UserFriendService userFriendService;
 
     @RequestMapping(value = "/listMine", method = RequestMethod.GET)
     ApiResult listMine(@Login UserInfo userInfo) {

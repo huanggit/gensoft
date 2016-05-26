@@ -6,7 +6,7 @@ CREATE TABLE users (
   status int(2) NOT NULL DEFAULT 1 COMMENT '是否有效,0无效，1有效',
   plate_no varchar(10) DEFAULT NULL COMMENT '用户车辆车牌号',
   nickname varchar(15) NOT NULL COMMENT '用户昵称',
-  mobile int(11) NOT NULL COMMENT '用户手机',
+  mobile BIGINT(12) NOT NULL COMMENT '用户手机',
   logo varchar(50) DEFAULT NULL COMMENT '用户头像',
   bind_device_id int(15) DEFAULT NULL COMMENT '绑定设备id',
   create_by_id int(15) DEFAULT NULL COMMENT '创建者',

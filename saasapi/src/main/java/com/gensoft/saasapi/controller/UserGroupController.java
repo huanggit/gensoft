@@ -4,6 +4,8 @@ import com.gensoft.core.annotation.Login;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
 import com.gensoft.saasapi.pojo.usergroup.UserGroupEntity;
+import com.gensoft.saasapi.service.UserGroupService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -11,7 +13,10 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/group")
 @RestController
-public class GroupController {
+public class UserGroupController {
+
+    @Autowired
+    private UserGroupService userGroupService;
 
     @RequestMapping(value = "/listMine", method = RequestMethod.GET)
     ApiResult listMine(@Login UserInfo userInfo) {

@@ -1,0 +1,81 @@
+<html>
+
+<script src="apiData.js"></script>
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+
+
+    $(document).ready(function(){
+        for(var i=0;i<jsondata.length;i++){
+            var lititle = "<li><a href='javascript:void(0);'>"+jsondata[i].apiname+"</a></li>";
+            $("#apiuls").append(lititle);
+        }
+        onbindaclick();
+    });
+
+
+
+
+
+    function onbindaclick(){
+        $("a").each(function(i,v){
+            $(this).click(function(){
+                $("#txtreq").val(JSON.stringify(jsondata[i].info));
+                $("#txtreq").attr("apiurl", jsondata[i].apiurl);
+            })
+        })
+    }
+
+
+    $(document).ready(function(){
+        $("#sub1").click(function(){
+
+            $.ajax({
+                type: 'post',
+                url: $("#txtreq").attr("apiurl") ,
+                headers : {
+                    'Content-Type' : 'application/json;charset=utf-8'
+                },
+                data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',
+                success: function(data){
+                    $("#txtres").val(JSON.stringify(data))
+                }
+
+            });
+        });
+    });
+</script>
+<body>
+<table width="1409" height="548" border="1">
+    <tr>
+        <td width="300" rowspan="2">
+            <div class="dropdown">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                    安卓测试接口选择
+                    <span class="caret"></span>
+                </button>
+                <ul id="apiuls" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                </ul>
+            </div>
+
+        </td>
+        <td width="805">
+            <div>
+                <textarea id="txtreq" cols="100" rows="20"></textarea>
+            </div>
+            <button id="sub1" >提交</button>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <textarea id="txtres" cols="100" rows="20"></textarea>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
