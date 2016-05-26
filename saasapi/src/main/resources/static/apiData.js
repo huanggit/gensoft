@@ -10,11 +10,11 @@ var jsondata = [
     },
 
     {
-        "apiname": "",
+        "apiname": "根据昵称查询用户",
+        "apiurl": "/user/findLikeName",
         "apitype": "post",
-        "apiurl": "",
         "info": {
-            "": ""
+            "namekeyword":"te"
         }
     }
 ]

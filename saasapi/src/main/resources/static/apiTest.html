@@ -38,9 +38,7 @@
             $.ajax({
                 type: 'post',
                 url: $("#txtreq").attr("apiurl") ,
-                headers : {
-                    'Content-Type' : 'application/json;charset=utf-8'
-                },
+                contentType: "application/json; charset=utf-8",  
                 data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',
                 success: function(data){
                     $("#txtres").val(JSON.stringify(data))

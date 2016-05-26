@@ -3,5 +3,6 @@ archivesBaseName = 'core'
 dependencies {
     compile project(':dao')
     compile(
+    	'org.apache.httpcomponents:httpclient:4.5.2'
     )
 }

@@ -1,8 +1,11 @@
 package com.gensoft.core.web;
 
+import java.io.UnsupportedEncodingException;
+
 /**
  * Created by alan on 16-5-24.
  */
+@SuppressWarnings("unchecked")
 public class ApiResult<T> {
 
     public static ApiResult successInstance() {
@@ -19,7 +22,13 @@ public class ApiResult<T> {
 
     @Override
     public String toString(){
-        return "{code:"+code+",note:\""+note+"\"}";
+        try {
+			return new String("{code:"+code+",note:\""+note+"\"}".toString().getBytes("UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "字符转码失败！";
+		}  
     }
 
     protected int code;
