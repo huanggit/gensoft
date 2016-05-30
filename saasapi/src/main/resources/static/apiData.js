@@ -16,5 +16,16 @@ var jsondata = [
         "info": {
             "namekeyword":"te"
         }
+    },
+    {
+        "apiname": "注册",
+        "apiurl": "/user/register",
+        "apitype": "post",
+        "info": {
+            "username":"aaa",
+            "nickname":"aaa",
+            "password":"123456",
+            "mobile":"18013955700"
+        }
     }
 ]

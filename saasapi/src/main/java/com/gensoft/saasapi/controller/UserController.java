@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -34,10 +35,22 @@ public class UserController {
 	@AnonymousAccess
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	ApiResult register(@RequestBody RegisterReq req) {
-		userService.register(req);
+		User user = new User();
+		user.setUsername(req.getUsername());
+		user.setNickname(req.getNickname());
+		user.setPassword(req.getPassword());
+		user.setMobile(req.getMobile());
+		user.setLogo(req.getLogo());
+		userService.register(user);
 		return ApiResult.successInstance();
 	}
-
+	@AnonymousAccess
+	@RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
+	ApiResult existsMobile(@RequestBody Map<String,String> map) {
+		return ApiResult.successInstance(userService.getUserByMobile(map.get("mobile")));
+	}
+	
+	
 	private static final String failedLogin = "用户名密码不正确";
 
 	@AnonymousAccess

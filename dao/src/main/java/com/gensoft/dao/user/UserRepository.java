@@ -16,7 +16,9 @@ import org.springframework.data.jpa.repository.Query;
 public interface UserRepository extends CrudRepository<User, Long> {
 	@Query("select s from User s where username=?1")
     public User findByUsername(String username);
-
+	@Query("select s from User s where mobile=?1")
+    public User getUserByMobile(String mobile);
+	
     @Query("select s from User s where id=?1")
     public User xx(Long x);
     @Query("select s from User s where nickname like :un")

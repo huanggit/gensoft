@@ -21,15 +21,19 @@ public class UserService {
 	private UserRepository userRepository;
 
 	@Transactional
-	public void register(RegisterReq user) {
-		// 用户名是否重复
-		// bindDeviceId 不为空，去device表查是否存在
+	public void register(User user) {
+		userRepository.save(user);
 	}
 
 	public User getUserByName(String username) {
 		return userRepository.findByUsername(username);
 	}
 
+	public boolean getUserByMobile(String mobile) {
+		return userRepository.getUserByMobile(mobile)==null?false:true;
+	}
+
+	
 	public List<User> getUserfindAll() {
 		List<User> userList = (List<User>) userRepository.findAll();
 		return userList;
