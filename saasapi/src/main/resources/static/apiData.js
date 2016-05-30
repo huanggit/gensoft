@@ -25,6 +25,7 @@ var jsondata = [
             "username":"aaa",
             "nickname":"aaa",
             "password":"123456",
+            "logo":"aa.jpg",
             "mobile":"18013955700"
         }
     }

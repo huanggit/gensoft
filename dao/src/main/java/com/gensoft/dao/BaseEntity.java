@@ -22,7 +22,7 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     protected Long id;
     //0:无效 1:有效
-    protected Integer status;
+    protected Integer status=1;
     //创建信息
     protected Long createById;
     protected Date createDate;

@@ -39,7 +39,7 @@ public class FileUploadController {
 		String fileName = multipartFile.getOriginalFilename();
 		long size =  multipartFile.getSize();
 		if(size>=1048576 ){
-			return ApiResult.failedInstance("上传文件请保持在2M以下！");
+			return ApiResult.failedInstance("上传文件请保持在1M以下！");
 		}
     	int lidex = fileName.lastIndexOf(".");
     	String prefix = fileName.substring(lidex);
