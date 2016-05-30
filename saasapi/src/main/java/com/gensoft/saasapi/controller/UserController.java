@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -84,9 +83,7 @@ public class UserController {
 
 	@AnonymousAccess
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	ApiResult resetPassword(HttpServletRequest request, @RequestBody ResetPasswordReq req) {
-		HttpSession session = request.getSession(true);
-		UserInfo userInfo = (UserInfo) session.getAttribute("userInfo");
+	ApiResult resetPassword(@Login UserInfo userInfo, @RequestBody ResetPasswordReq req) {
 		User user = userService.getUserById(userInfo.getId());
 		userService.update(user);
 		return ApiResult.successInstance();
