@@ -12,6 +12,7 @@ import com.gensoft.saasapi.config.BaseProperties;
 public class Application {
 
     public static void main(String[] args) throws Exception {
+    	// this is a test
         SpringApplication.run(Application.class, args);
     }
 
