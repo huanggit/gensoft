@@ -1,5 +1,4 @@
 <html>
-
 <script src="apiData.js"></script>
 <!-- 新 Bootstrap 核心 CSS 文件 -->
 <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css">
@@ -27,6 +26,7 @@
             $(this).click(function(){
                 $("#txtreq").val(JSON.stringify(jsondata[i].info));
                 $("#txtreq").attr("apiurl", jsondata[i].apiurl);
+                $("#txtreq").attr("apitype", jsondata[i].apitype);
             })
         })
     }
@@ -36,7 +36,7 @@
         $("#sub1").click(function(){
 
             $.ajax({
-                type: 'post',
+                type: $("#txtreq").attr("apitype"),
                 url: $("#txtreq").attr("apiurl") ,
                 contentType: "application/json; charset=utf-8",  
                 data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',

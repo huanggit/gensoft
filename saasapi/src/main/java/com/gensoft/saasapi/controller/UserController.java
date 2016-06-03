@@ -42,11 +42,11 @@ public class UserController {
 		user.setMobile(req.getMobile());
 		user.setLogo(req.getLogo());
 		userService.register(user);
-		return ApiResult.successInstance();
+		return ApiResult.successInstance(user);
 	}
 	@AnonymousAccess
 	@RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
-	ApiResult existsMobile(@RequestBody Map<String,String> map) {
+	ApiResult existsMobile(@RequestBody HashMap<String,String> map) {
 		return ApiResult.successInstance(userService.getUserByMobile(map.get("mobile")));
 	}
 	
@@ -119,7 +119,7 @@ public class UserController {
 		return ApiResult.successInstance(list);
 	}
 
-	@RequestMapping(value = "/listAll", method = RequestMethod.GET)
+	@RequestMapping(value = "/listAll", method = RequestMethod.POST)
 	ApiResult findLikeName() {
 		List<User> userList = userService.getUserfindAll();
 		return ApiResult.successInstance(userList);

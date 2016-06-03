@@ -22,7 +22,7 @@ public class UserFriendService {
     
     
     public void delUserFriend(UserFriend userFriend){
-    	userFriendRepository.delete(userFriend);
+    	userFriendRepository.delUserFriendByUid(userFriend.getUserId(), userFriend.getFriendId());
     }
     
     public void addUserFriend(UserFriend userFriend){
