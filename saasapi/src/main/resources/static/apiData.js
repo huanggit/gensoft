@@ -60,12 +60,17 @@ var jsondata = [
     {
         "apiname": "添加群组",
         "apiurl": "/group/add",
-        "apitype": "get"
+        "apitype": "post",
+        "info": {
+                 "name":"aaa",
+                 "descipt":"aa",
+                 "tagId":"1"
+             }
     },
     {
         "apiname": "删除群组",
         "apiurl": "/group/delete",
-        "apitype": "get"
+        "apitype": "post"
     },
     {
         "apiname": "注册",

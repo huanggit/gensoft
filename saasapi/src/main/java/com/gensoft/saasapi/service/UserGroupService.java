@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alan on 16-5-26.
@@ -31,7 +32,9 @@ public class UserGroupService {
 		userGroupRepository.save(userGroup);
 	}
 
+	@Transactional
 	public void delUserGroup(UserGroup userGroup) {
+		userGroupMapRepository.delUserGroupMapByGid(userGroup.getId());
 		userGroupRepository.delete(userGroup);
 	}
 

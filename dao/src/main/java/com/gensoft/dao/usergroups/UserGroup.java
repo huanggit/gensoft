@@ -1,8 +1,17 @@
 package com.gensoft.dao.usergroups;
 
 import com.gensoft.dao.BaseEntity;
+import com.gensoft.dao.user.User;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -13,24 +22,27 @@ import javax.validation.constraints.NotNull;
 @Table(name = "user_groups")
 public class UserGroup extends BaseEntity{
 
+  
     @NotNull
-    private long userid;
+    private long userId;
     @NotNull
     private String name;
     @NotNull
-    private String desc;
+    private String descipt;
     @NotNull
     private long tagId;
+    
+    
 
-    public long getUserid() {
-        return userid;
-    }
+	public long getUserId() {
+		return userId;
+	}
 
-    public void setUserid(long userid) {
-        this.userid = userid;
-    }
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 
@@ -38,15 +50,17 @@ public class UserGroup extends BaseEntity{
         this.name = name;
     }
 
-    public String getDesc() {
-        return desc;
-    }
+  
 
-    public void setDesc(String desc) {
-        this.desc = desc;
-    }
+    public String getDescipt() {
+		return descipt;
+	}
 
-    public long getTagId() {
+	public void setDescipt(String descipt) {
+		this.descipt = descipt;
+	}
+
+	public long getTagId() {
         return tagId;
     }
 
