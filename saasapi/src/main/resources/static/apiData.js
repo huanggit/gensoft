@@ -70,7 +70,21 @@ var jsondata = [
     {
         "apiname": "删除群组",
         "apiurl": "/group/delete",
-        "apitype": "post"
+        "apitype": "post",
+        "info": {
+            "groupId":"1"
+            
+        }
+    },
+    {
+        "apiname": "添加群用户",
+        "apiurl": "/group/addUserToGroup",
+        "apitype": "post",
+        "info": {
+            "groupId":"1",
+            "userIds":"1,2,3"
+            
+        }
     },
     {
         "apiname": "注册",

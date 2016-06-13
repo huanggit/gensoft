@@ -5,11 +5,13 @@ import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
 import com.gensoft.dao.user.User;
 import com.gensoft.dao.usergroups.UserGroup;
+import com.gensoft.dao.usergroups.UserGroupMap;
 import com.gensoft.dao.usergroups.UserGroupTag;
 import com.gensoft.saasapi.pojo.usergroup.UserGroupEntity;
 import com.gensoft.saasapi.service.UserGroupService;
 import com.gensoft.saasapi.service.UserGroupTagService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -81,6 +83,26 @@ public class UserGroupController {
 		userGroup.setUpdateById(userInfo.getId());
 		userGroup.setUpdateDate(new Date());
 		userGroupService.updateUserGroup(userGroup);
+		return ApiResult.successInstance();
+	}
+	
+	@RequestMapping(value = "/addUserToGroup", method = RequestMethod.POST)
+	ApiResult addUserToGroup(@Login UserInfo userInfo, @RequestBody HashMap<String,String> map) {
+		String userIds = map.get("userIds");
+		String [] userId = userIds.split(",");
+		List<UserGroupMap> userGroupMaps =new ArrayList<UserGroupMap>();
+		for(int i =0;i<userId.length;i++){
+			UserGroupMap userGroupMap =new UserGroupMap();
+			userGroupMap.setGroupId(new Long(map.get("groupId")));
+			userGroupMap.setUserId(new Long(userId[i]));
+			userGroupMap.setCreateDate(new Date());
+			userGroupMap.setUpdateDate(new Date());
+			userGroupMap.setUpdateById(userInfo.getId());
+			userGroupMap.setCreateById(userInfo.getId());
+			userGroupMaps.add(userGroupMap);
+		}
+		
+		userGroupService.addUserToGroup(userGroupMaps);
 		return ApiResult.successInstance();
 	}
 	

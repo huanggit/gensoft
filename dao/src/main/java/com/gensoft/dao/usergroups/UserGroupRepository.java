@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface UserGroupRepository extends CrudRepository<UserGroup, Long> {
 
-	@Query("select s from UserGroup s where userid=?1")
+	@Query("select s from UserGroup s where userId=?1")
 	public List<UserGroup>  getMyGroup(long userId );
 	
 	@Transactional

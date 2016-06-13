@@ -2,6 +2,7 @@ package com.gensoft.saasapi.service;
 
 import com.gensoft.dao.user.UserRepository;
 import com.gensoft.dao.usergroups.UserGroup;
+import com.gensoft.dao.usergroups.UserGroupMap;
 import com.gensoft.dao.usergroups.UserGroupMapRepository;
 import com.gensoft.dao.usergroups.UserGroupRepository;
 
@@ -45,4 +46,12 @@ public class UserGroupService {
 	public void updateUserGroup(UserGroup userGroup){
 		userGroupRepository.save(userGroup);
 	}
+	
+	public void addUserToGroup(List<UserGroupMap> userGroupMaps  ){
+		userGroupMapRepository.save(userGroupMaps);
+	}
+	
+	
+
+	
 }

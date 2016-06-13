@@ -18,7 +18,8 @@ public abstract class BaseEntity {
     /**状态无效*/
     public static final Integer STATUS_NO_VALID = 0;
 
-  
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
     protected Long id;
     //0:无效 1:有效
     protected Integer status=1;
@@ -27,8 +28,7 @@ public abstract class BaseEntity {
     protected Date createDate;
     protected Long updateById;
     protected Date updateDate;
-    @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    
     public Long getId() {
         return id;
     }
