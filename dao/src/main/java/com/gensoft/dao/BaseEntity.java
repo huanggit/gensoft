@@ -28,7 +28,7 @@ public abstract class BaseEntity {
     protected Date createDate;
     protected Long updateById;
     protected Date updateDate;
-
+    
     public Long getId() {
         return id;
     }

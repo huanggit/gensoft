@@ -15,6 +15,7 @@ import com.gensoft.core.web.ApiResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +42,7 @@ public class UserController {
 		user.setPassword(req.getPassword());
 		user.setMobile(req.getMobile());
 		user.setLogo(req.getLogo());
+		user.setCreateDate(new Date());
 		userService.register(user);
 		return ApiResult.successInstance(user);
 	}

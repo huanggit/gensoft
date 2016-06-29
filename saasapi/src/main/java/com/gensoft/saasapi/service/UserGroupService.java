@@ -2,6 +2,7 @@ package com.gensoft.saasapi.service;
 
 import com.gensoft.dao.user.UserRepository;
 import com.gensoft.dao.usergroups.UserGroup;
+import com.gensoft.dao.usergroups.UserGroupMap;
 import com.gensoft.dao.usergroups.UserGroupMapRepository;
 import com.gensoft.dao.usergroups.UserGroupRepository;
 
@@ -9,6 +10,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by alan on 16-5-26.
@@ -31,7 +33,9 @@ public class UserGroupService {
 		userGroupRepository.save(userGroup);
 	}
 
+	@Transactional
 	public void delUserGroup(UserGroup userGroup) {
+		userGroupMapRepository.delUserGroupMapByGid(userGroup.getId());
 		userGroupRepository.delete(userGroup);
 	}
 
@@ -42,4 +46,12 @@ public class UserGroupService {
 	public void updateUserGroup(UserGroup userGroup){
 		userGroupRepository.save(userGroup);
 	}
+	
+	public void addUserToGroup(List<UserGroupMap> userGroupMaps  ){
+		userGroupMapRepository.save(userGroupMaps);
+	}
+	
+	
+
+	
 }
