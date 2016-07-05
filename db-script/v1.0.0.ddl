@@ -77,4 +77,16 @@ CREATE TABLE `user_group_map` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8  COMMENT '群组成员表';
 
 
-
+DROP TABLE IF EXISTS `user_verification_code`;
+CREATE TABLE `user_group_map` (
+  id int(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  status int(2) NOT NULL DEFAULT 1 COMMENT '是否有效,0无效，1有效',
+  user_id int(15) NOT NULL COMMENT '用户id',
+  code_type int(2) NOT NULL COMMENT '验证码类型：1 注册, 2 找回密码',
+  verification_code int(15) NOT NULL COMMENT '验证码',
+  create_by_id int(15) DEFAULT NULL COMMENT '创建者',
+  create_date DATE DEFAULT NULL COMMENT '创建时间',
+  update_by_id int(15) DEFAULT NULL COMMENT '更新者',
+  update_date DATE DEFAULT NULL COMMENT '更新时间',
+  INDEX user_group_map_group_id (user_id)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8  COMMENT '用户验证码表';
