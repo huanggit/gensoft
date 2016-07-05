@@ -30,7 +30,11 @@ public class UserService {
 	}
 
 	public boolean getUserByMobile(String mobile) {
-		return userRepository.getUserByMobile(new Long(mobile))==null?false:true;
+		List<User>  user = userRepository.getUserByMobile(new Long(mobile));
+		if(user.size()>0){
+			return true;
+		}
+		return false;
 	}
 	
 	public List<User> getUserfindAll() {
