@@ -42,6 +42,8 @@ public class UserController {
 		user.setPassword(req.getPassword());
 		user.setMobile(req.getMobile());
 		user.setLogo(req.getLogo());
+		user.setPlateNo(req.getPlateNo());
+		user.setUpdateDate(new Date());
 		user.setCreateDate(new Date());
 		userService.register(user);
 		return ApiResult.successInstance(user);
@@ -49,7 +51,13 @@ public class UserController {
 	@AnonymousAccess
 	@RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
 	ApiResult existsMobile(@RequestBody HashMap<String,String> map) {
-		return ApiResult.successInstance(userService.getUserByMobile(map.get("mobile")));
+		String mobile =  map.get("mobile");
+		if(userService.getUserByMobile(mobile)){
+			return ApiResult.successInstance();
+		}else{
+			return ApiResult.failedInstance("failed");
+		}
+		
 	}
 	
 	
@@ -65,7 +73,7 @@ public class UserController {
 		UserInfo userInfo = new UserInfo(user.getId(), user.getBindDeviceId());
 		HttpSession session = request.getSession(true);
 		session.setAttribute("userInfo", userInfo);
-		return ApiResult.successInstance();
+		return ApiResult.successInstance(user);
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
@@ -88,7 +96,7 @@ public class UserController {
 			verificationCode = Integer.toString(num);
 			// 设置您要发送的内容(内容必须和某个模板匹配。以下例子匹配的是系统提供的1号模板）
 			String text = "【南京绅软】您已注册南京绅软智能车载客户端，验证码为" + verificationCode + "。如非本人操作，请忽略本短信";
-			JavaSmsApi.send(verificationCode, phone);
+			JavaSmsApi.send(text, phone);
 			System.out.println(verificationCode);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -96,6 +104,30 @@ public class UserController {
 		return ApiResult.successInstance(verificationCode);
 	}
 
+	void  setMessage() {
+		// TODO
+		String verificationCode = "8888";
+		try {
+			String phone =  "18013955700";
+			int num = (int) (Math.random() * 1000000);
+			verificationCode = Integer.toString(num);
+			// 设置您要发送的内容(内容必须和某个模板匹配。以下例子匹配的是系统提供的1号模板）
+			String text = "【南京绅软】您已注册南京绅软智能车载客户端，验证码为" + verificationCode + "。如非本人操作，请忽略本短信";
+			JavaSmsApi.send(verificationCode, phone);
+			System.out.println(verificationCode);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	
+	public static void main(String[] arg0){
+		UserController  a  = new UserController();
+				a.setMessage();
+	}
+	
+	
 	@AnonymousAccess
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
 	ApiResult resetPassword(@Login UserInfo userInfo, @RequestBody ResetPasswordReq req) {
@@ -116,13 +148,12 @@ public class UserController {
 	@RequestMapping(value = "/findLikeName", method = RequestMethod.POST)
 	ApiResult findLikeName(HttpServletRequest request, @RequestBody HashMap<String, String> map) {
 		String namekeyword = map.get("namekeyword");
-
 		List<User> list = userService.getUserFindLikeName(namekeyword);
 		return ApiResult.successInstance(list);
 	}
 
 	@RequestMapping(value = "/listAll", method = RequestMethod.POST)
-	ApiResult findLikeName() {
+	ApiResult listAll() {
 		List<User> userList = userService.getUserfindAll();
 		return ApiResult.successInstance(userList);
 	}
