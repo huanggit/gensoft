@@ -15,7 +15,6 @@ public interface UserFriendRepository extends CrudRepository<UserFriend,Long>{
 	@Query("select s from UserFriend s where userId=?1")
     public List<UserFriend> getUserFriendByUid(long userid);
 	
-	@Transactional
 	@Modifying
 	@Query("delete  from UserFriend  where userId=?1 and friendId=?2")
     public int delUserFriendByUid(long userId,long friendId);

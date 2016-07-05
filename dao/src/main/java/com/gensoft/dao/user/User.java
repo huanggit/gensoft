@@ -5,9 +5,16 @@ package com.gensoft.dao.user;
  */
 
 import com.gensoft.dao.BaseEntity;
+import com.gensoft.dao.usergroups.UserGroup;
 
+import java.util.Set;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -28,8 +35,8 @@ public class User extends BaseEntity {
     private Long bindDeviceId;
 
     private String plateNo;
-
-    //setter & getters
+    
+	//setter & getters
     public String getPlateNo() { return plateNo; }
 
     public void setPlateNo(String plateNo) { this.plateNo = plateNo; }
