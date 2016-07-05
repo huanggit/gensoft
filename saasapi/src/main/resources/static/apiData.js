@@ -17,6 +17,43 @@ var jsondata = [
         }
     },
     {
+        "apiname": "登出",
+        "apiurl": "/user/logout",
+        "apitype": "post",
+      
+        
+    },
+    {
+        "apiname": "发送短信验证码",
+        "apiurl": "/user/getVerificationCode",
+        "apitype": "post",
+        "info": {
+            "mobile":"18013955700"
+        }
+    },
+    {
+        "apiname": "重置密码",
+        "apiurl": "/user/resetPassword",
+        "apitype": "post",
+        "info": {
+            "mobile":"18013955700"
+        }
+        
+    },
+    {
+        "apiname": "更新用户信息",
+        "apiurl": "/user/modifyInfo",
+        "apitype": "post",
+        "info": {
+        	"password":"111",
+            "repeatPassword":"111",
+            "verificationCode":"1111",
+            "username":"test",
+            "mobile":"18013955700"
+        }
+    },
+    
+    {
         "apiname": "根据昵称查询用户",
         "apiurl": "/user/findLikeName",
         "apitype": "post",
