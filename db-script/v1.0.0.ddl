@@ -78,7 +78,7 @@ CREATE TABLE `user_group_map` (
 
 
 DROP TABLE IF EXISTS `user_verification_code`;
-CREATE TABLE `user_group_map` (
+CREATE TABLE `user_verification_code` (
   id int(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   status int(2) NOT NULL DEFAULT 1 COMMENT '是否有效,0无效，1有效',
   user_id int(15) NOT NULL COMMENT '用户id',
