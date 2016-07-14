@@ -34,7 +34,7 @@ public class ChatController {
     }
 
     public List<UserChat> userChatDetail(@Login UserInfo userInfo, @RequestParam("userId") Long userId) {
-        List<UserChat> history = chatService.userChatHistoryByUserId(userInfo.getId(),userId);
+        List<UserChat> history = chatService.userChatHistoryByUserId(userInfo.getId(), userId);
         return history;
     }
 
@@ -43,21 +43,19 @@ public class ChatController {
         return history;
     }
 
-    public CmdRouter userChat(@Login UserInfo userInfo, @RequestBody ChatMessage chatMessage){
+    public CmdRouter userChat(@Login UserInfo userInfo, @RequestBody ChatMessage chatMessage) {
         chatService.saveUserChat(chatMessage, userInfo.getId());
-        ApiResult apiResult = ApiResult.successInstance(chatMessage);
-        apiResult.setCmd("userChat");
+        ApiResult apiResult = ApiResult.successInstance("userChat", chatMessage);
         CmdRouter cmdRouter = new CmdRouter(apiResult, chatMessage.getReceiverId());
-        return  cmdRouter;
+        return cmdRouter;
     }
 
-    public CmdRouter groupChat(@Login UserInfo userInfo,  @RequestBody ChatMessage chatMessage){
+    public CmdRouter groupChat(@Login UserInfo userInfo, @RequestBody ChatMessage chatMessage) {
         chatService.saveGroupChat(chatMessage, userInfo.getId());
-        ApiResult apiResult = ApiResult.successInstance(chatMessage);
-        apiResult.setCmd("groupChat");
+        ApiResult apiResult = ApiResult.successInstance("groupChat", chatMessage);
         List<Long> receivers = userGroupService.getGroupUsers(chatMessage.getReceiverId());
         CmdRouter cmdRouter = new CmdRouter(apiResult, receivers);
-        return  cmdRouter;
+        return cmdRouter;
     }
 
 

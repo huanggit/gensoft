@@ -46,7 +46,7 @@ public class SaasHandlerExceptionResolver extends AbstractHandlerExceptionResolv
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
         HandlerMethod handlerMethod = (HandlerMethod) handler;
-        ApiResult apiResult = ApiResult.failedInstance(1);
+        ApiResult apiResult = ApiResult.failedInstance("todo", ApiResult.CODE_UNHANDLED_BUG);
         response.setContentType("application/json;charset=UTF-8");
         try {
             response.getWriter().write(apiResult.toString());
