@@ -17,6 +17,8 @@ import com.gensoft.saasapi.util.FileUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.ApplicationObjectSupport;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,8 @@ import java.lang.annotation.Annotation;
 @Service
 public class CmdHandler extends ApplicationObjectSupport {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     FileUtil fileUtil;
 
@@ -48,8 +52,9 @@ public class CmdHandler extends ApplicationObjectSupport {
 
     public CmdRouter handleText(TextWebSocketFrame frame, UserInfo userInfo) {
         CmdRouter cmdRouter = null;
+        String request = frame.text();
+        logger.info("[request by {}]: {}.", userInfo.getId(), request);
         try {
-            String request = frame.text();
             Map<String, Object> paramMap = new HashMap<>();
             paramMap = objectMapper.readValue(request, paramMap.getClass());
             String cmd = (String) paramMap.get("cmd");
@@ -76,26 +81,32 @@ public class CmdHandler extends ApplicationObjectSupport {
                 cmdRouter = new CmdRouter(ApiResult.failedInstance(cmd, ApiResult.CODE_INVALID_PARAMS));
             } catch (BusinessException e) {
                 cmdRouter = new CmdRouter(ApiResult.failedInstance(cmd, e.getCode()));
-            } catch (Exception e){
-                //todo log
+            } catch (Exception e) {
+                logger.error("[bug]", e);
                 cmdRouter = new CmdRouter(ApiResult.failedInstance(cmd, ApiResult.CODE_UNHANDLED_BUG));
             }
+            logger.info("[response by {}]: {}.", userInfo.getId(), objectMapper.writeValueAsString(cmdRouter));
         } catch (IOException e) {
-            cmdRouter = new CmdRouter(ApiResult.failedInstance("N/A", ApiResult.CODE_INVALID_JSON_FORMAT_REQUEST));
+            logger.info("[response by {}]: bad json format for request: {}.", userInfo.getId(), request);
+            cmdRouter = new CmdRouter(ApiResult.failedInstance("bad_json_format_request", ApiResult.CODE_INVALID_JSON_FORMAT_REQUEST));
         }
         return cmdRouter;
     }
 
-    public CmdRouter handleBinary(BinaryWebSocketFrame frame) {
+    public CmdRouter handleBinary(BinaryWebSocketFrame frame, UserInfo userInfo) {
         CmdRouter cmdRouter = null;
         try {
-            ByteBuf buf = frame.content();
-            byte[] content = new byte[buf.capacity()];
-            buf.readBytes(content);
-            String filePath = fileUtil.saveBytes(content);
-            cmdRouter = new CmdRouter(ApiResult.successInstance("uploadFile", filePath));
-        }catch (BusinessException e){
-            cmdRouter = new CmdRouter(ApiResult.failedInstance("uploadFile", e.getCode()));
+            try {
+                ByteBuf buf = frame.content();
+                byte[] content = new byte[buf.capacity()];
+                buf.readBytes(content);
+                String filePath = fileUtil.saveBytes(content);
+                cmdRouter = new CmdRouter(ApiResult.successInstance("uploadFile", filePath));
+            } catch (BusinessException e) {
+                cmdRouter = new CmdRouter(ApiResult.failedInstance("uploadFile", e.getCode()));
+            }
+            logger.info("[response by {}]: {}.", userInfo.getId(), objectMapper.writeValueAsString(cmdRouter));
+        } catch (JsonProcessingException e) {
         }
         return cmdRouter;
     }

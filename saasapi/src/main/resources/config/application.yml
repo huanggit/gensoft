@@ -10,6 +10,10 @@ spring.profiles.active: dev
 #logging.level.root: INFO
 
 --- #------------------------- program ----------------------------
+logging:
+  file: logs/saasapi.log
+  level: debug
+
 monitor:
   homeMessage: |
     GenSoft Saasapi has started successfully!
