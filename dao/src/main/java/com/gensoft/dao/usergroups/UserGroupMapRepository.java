@@ -18,6 +18,9 @@ public interface UserGroupMapRepository extends CrudRepository<UserGroupMap, Lon
 
 	@Modifying
 	@Query("delete  from UserGroupMap  where groupId=?1 ")
-    public int delUserGroupMapByGid(long groupId);
+    public int delUserGroupMapById(long groupId);
+
+	@Query("select userId from UserGroupMap  where groupId=?1")
+	public List<Long> getGroupUsers(long groupId);
 	
 }

@@ -50,8 +50,8 @@ public class SaasHandlerExceptionResolver extends AbstractHandlerExceptionResolv
         response.setContentType("application/json;charset=UTF-8");
         try {
             response.getWriter().write(apiResult.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+
         }
         return new ModelAndView();
     }

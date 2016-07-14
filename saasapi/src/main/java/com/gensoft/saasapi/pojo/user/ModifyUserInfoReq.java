@@ -6,7 +6,7 @@ package com.gensoft.saasapi.pojo.user;
 public class ModifyUserInfoReq {
     private String nickname;
     private String plateNo;
-    private String mobile;
+    private Long mobile;
     private String logo;
 
     public String getNickname() {
@@ -25,11 +25,11 @@ public class ModifyUserInfoReq {
         this.plateNo = plateNo;
     }
 
-    public String getMobile() {
+    public Long getMobile() {
         return mobile;
     }
 
-    public void setMobile(String mobile) {
+    public void setMobile(Long mobile) {
         this.mobile = mobile;
     }
 

@@ -38,7 +38,7 @@ public class UserService {
 	}
 	
 	public List<User> getUserfindAll() {
-		List<User> userList = (List<User>) userRepository.findAll();
+		List<User> userList = userRepository.findAllUsers();
 		return userList;
 	}
 	public List<User> getUserFindLikeName(String likeName) {

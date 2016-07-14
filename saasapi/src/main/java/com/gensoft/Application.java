@@ -1,19 +1,26 @@
 package com.gensoft;
 
+import com.gensoft.saasapi.websocket.WebsocketChatServer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
-import com.gensoft.saasapi.config.BaseProperties;
 
 
 @SpringBootApplication
-@EnableConfigurationProperties(BaseProperties.class)  
-public class Application {
+public class Application implements CommandLineRunner {
+
+    @Autowired
+    WebsocketChatServer websocketChatServer;
 
     public static void main(String[] args) throws Exception {
-    	// this is a test
         SpringApplication.run(Application.class, args);
     }
 
+
+    @Override
+    public void run(String... args) throws Exception {
+        websocketChatServer.startServer();
+    }
 }

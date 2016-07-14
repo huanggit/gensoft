@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by alan on 16-5-25.
  */
-@Configuration
+//@Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean

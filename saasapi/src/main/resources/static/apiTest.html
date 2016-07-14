@@ -25,6 +25,7 @@
         $("a").each(function(i,v){
             $(this).click(function(){
                 $("#txtreq").val(JSON.stringify(jsondata[i].info));
+                $("#txturl").val(JSON.stringify(jsondata[i].apiurl));
                 $("#txtreq").attr("apiurl", jsondata[i].apiurl);
                 $("#txtreq").attr("apitype", jsondata[i].apitype);
             })
@@ -53,25 +54,23 @@
     <tr>
         <td width="300" rowspan="2">
             <div class="dropdown">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                    安卓测试接口选择
-                    <span class="caret"></span>
-                </button>
-                <ul id="apiuls" class="dropdown-menu" aria-labelledby="dropdownMenu1">
+
+                <ul id="apiuls" >
                 </ul>
             </div>
 
         </td>
         <td width="805">
             <div>
-                <textarea id="txtreq" cols="100" rows="20"></textarea>
+                <textarea id="txturl" cols="100" rows="2"></textarea>
+                <textarea id="txtreq" cols="100" rows="18"></textarea>
             </div>
             <button id="sub1" >提交</button>
         </td>
     </tr>
     <tr>
         <td>
-            <textarea id="txtres" cols="100" rows="20"></textarea>
+            <textarea id="txtres" cols="100" rows="18"></textarea>
         </td>
     </tr>
 </table>

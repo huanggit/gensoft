@@ -6,6 +6,7 @@ import com.gensoft.dao.usergroups.UserGroupMap;
 import com.gensoft.dao.usergroups.UserGroupMapRepository;
 import com.gensoft.dao.usergroups.UserGroupRepository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +30,23 @@ public class UserGroupService {
 		return userGroupRepository.getMyGroup(userId);
 	}
 
+	@Transactional
 	public void addUserGroup(UserGroup userGroup) {
 		userGroupRepository.save(userGroup);
+		Long userId = userGroup.getUserId();
+		UserGroupMap userGroupMap =new UserGroupMap();
+		userGroupMap.setGroupId(userGroup.getId());
+		userGroupMap.setUserId(userId);
+		userGroupMap.setCreateDate(new Date());
+		userGroupMap.setUpdateDate(new Date());
+		userGroupMap.setUpdateById(userId);
+		userGroupMap.setCreateById(userId);
+		addUserToGroup(userGroupMap);
 	}
 
 	@Transactional
 	public void delUserGroup(UserGroup userGroup) {
-		userGroupMapRepository.delUserGroupMapByGid(userGroup.getId());
+		userGroupMapRepository.delUserGroupMapById(userGroup.getId());
 		userGroupRepository.delete(userGroup);
 	}
 
@@ -47,11 +58,14 @@ public class UserGroupService {
 		userGroupRepository.save(userGroup);
 	}
 	
-	public void addUserToGroup(List<UserGroupMap> userGroupMaps  ){
-		userGroupMapRepository.save(userGroupMaps);
+	public void addUserToGroup(UserGroupMap userGroupMap){
+		userGroupMapRepository.save(userGroupMap);
 	}
 	
-	
+	public List<Long> getGroupUsers(Long groupId){
+		List<Long> receivers = userGroupMapRepository.getGroupUsers(groupId);
+		return receivers;
+	}
 
 	
 }

@@ -9,48 +9,43 @@ import java.io.UnsupportedEncodingException;
 public class ApiResult<T> {
 
     public static ApiResult successInstance() {
-        return new ApiResult(0, "success");
+        return new ApiResult(0);
     }
 
     public static ApiResult failedInstance(String message) {
-        return new ApiResult(1, message);
+        return new ApiResult(1);
     }
 
     public static ApiResult successInstance(Object result) {
-        return new ApiResult(0, "success", result);
+        return new ApiResult(0, result);
     }
 
-    @Override
-    public String toString(){
-        try {
-			return new String("{code:"+code+",note:\""+note+"\"}".toString().getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "字符转码失败！";
-		}  
-    }
-
-    protected int code;
-    protected String note;
-    private T result;
 
     public ApiResult() {
     }
 
 
-    public ApiResult(int code, String note) {
+    public ApiResult(int code) {
         this.code = code;
-        this.note = note;
     }
 
-    public ApiResult(int code, String note, T result) {
+    public ApiResult(int code, T result) {
         this.code = code;
-        this.note = note;
         this.result = result;
     }
 
 
+    protected int code;
+    private T result;
+    private String cmd;
+
+    public String getCmd() {
+        return cmd;
+    }
+
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
+    }
     public int getCode() {
         return code;
     }
@@ -67,11 +62,4 @@ public class ApiResult<T> {
         this.result = result;
     }
 
-    public String getNote() {
-        return note;
-    }
-
-    public void setNote(String note) {
-        this.note = note;
-    }
 }

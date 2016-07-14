@@ -17,13 +17,13 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by alan on 16-5-24.
  */
-@RequestMapping("/group")
-@RestController
+@Component
 public class UserGroupController {
 
 	@Autowired
@@ -32,20 +32,17 @@ public class UserGroupController {
 	@Autowired
 	private UserGroupTagService userGroupTagService;
 
-	@RequestMapping(value = "/listMine", method = RequestMethod.GET)
-	ApiResult listMine(@Login UserInfo userInfo) {
+	public ApiResult listMine(@Login UserInfo userInfo) {
 		List<UserGroup> list = userGroupService.getMyGroup(userInfo.getId());
 		return ApiResult.successInstance(list);
 	}
 
-	@RequestMapping(value = "/listTags", method = RequestMethod.GET)
-	ApiResult listTags() {
+	public ApiResult listTags() {
 		List<UserGroupTag> list = userGroupTagService.getAllUserGroupTag();
 		return ApiResult.successInstance(list);
 	}
 
-	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	ApiResult add(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {
+	public ApiResult add(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {
 		UserGroup userGroup = new UserGroup();
 		userGroup.setName(req.getName());
 		userGroup.setDescipt(req.getDescipt());
@@ -59,23 +56,20 @@ public class UserGroupController {
 		return ApiResult.successInstance();
 	}
 
-	@RequestMapping(value = "/delete", method = RequestMethod.POST)
-	ApiResult delete(@Login UserInfo userInfo, @RequestBody HashMap<String,String> map) {
+	public ApiResult delete(@Login UserInfo userInfo, @RequestParam("groupId") Long groupId) {
 		UserGroup userGroup = new UserGroup();
 		userGroup.setUserId(userInfo.getId());
-		userGroup.setId(new Long(map.get("groupId")));
+		userGroup.setId(groupId);
 		userGroupService.delUserGroup(userGroup);
 		return ApiResult.successInstance();
 	}
 
-	@RequestMapping(value = "/detail", method = RequestMethod.POST)
-	ApiResult detail(@Login UserInfo userInfo, @RequestParam String groupId) {
-		UserGroup userGroup = userGroupService.getUserGroupdetail(new Long(groupId));
+	public ApiResult detail(@Login UserInfo userInfo, @RequestParam("groupId") Long groupId) {
+		UserGroup userGroup = userGroupService.getUserGroupdetail(groupId);
 		return ApiResult.successInstance(userGroup);
 	}
 
-	@RequestMapping(value = "/modifyInfo", method = RequestMethod.POST)
-	ApiResult modifyInfo(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {
+	public ApiResult modifyInfo(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {
 		UserGroup userGroup = new UserGroup();
 		userGroup.setUserId(userInfo.getId());
 		userGroup.setDescipt(req.getDescipt());
@@ -85,24 +79,16 @@ public class UserGroupController {
 		userGroupService.updateUserGroup(userGroup);
 		return ApiResult.successInstance();
 	}
-	
-	@RequestMapping(value = "/addUserToGroup", method = RequestMethod.POST)
-	ApiResult addUserToGroup(@Login UserInfo userInfo, @RequestBody HashMap<String,String> map) {
-		String userIds = map.get("userIds");
-		String [] userId = userIds.split(",");
-		List<UserGroupMap> userGroupMaps =new ArrayList<UserGroupMap>();
-		for(int i =0;i<userId.length;i++){
-			UserGroupMap userGroupMap =new UserGroupMap();
-			userGroupMap.setGroupId(new Long(map.get("groupId")));
-			userGroupMap.setUserId(new Long(userId[i]));
-			userGroupMap.setCreateDate(new Date());
-			userGroupMap.setUpdateDate(new Date());
-			userGroupMap.setUpdateById(userInfo.getId());
-			userGroupMap.setCreateById(userInfo.getId());
-			userGroupMaps.add(userGroupMap);
-		}
-		
-		userGroupService.addUserToGroup(userGroupMaps);
+
+	public ApiResult addUserToGroup(@Login UserInfo userInfo, @RequestParam("groupId") Long groupId, @RequestParam("userId") Long userId) {
+		UserGroupMap userGroupMap =new UserGroupMap();
+		userGroupMap.setGroupId(groupId);
+		userGroupMap.setUserId(userId);
+		userGroupMap.setCreateDate(new Date());
+		userGroupMap.setUpdateDate(new Date());
+		userGroupMap.setUpdateById(userInfo.getId());
+		userGroupMap.setCreateById(userInfo.getId());
+		userGroupService.addUserToGroup(userGroupMap);
 		return ApiResult.successInstance();
 	}
 	
