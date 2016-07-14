@@ -1,31 +1,17 @@
 var jsondata = [
-    {
-        "apiname": "登录",
-        "apiurl": "/user/login",
-        "apitype": "post",
-        "info": {
-            "username": "test",
-            "password": "test"
-        }
-    },
+    
     {
         "apiname": "判断手机号是否重复",
-        "apiurl": "/user/existsMobile",
+        "apiurl": "/existsMobile",
         "apitype": "post",
         "info": {
             "mobile":"18013955700"
         }
     },
-    {
-        "apiname": "登出",
-        "apiurl": "/user/logout",
-        "apitype": "post",
-      
-        
-    },
+   
     {
         "apiname": "发送短信验证码",
-        "apiurl": "/user/getVerificationCode",
+        "apiurl": "/getVerificationCode",
         "apitype": "post",
         "info": {
             "mobile":"18013955700"
@@ -33,7 +19,7 @@ var jsondata = [
     },
     {
         "apiname": "重置密码",
-        "apiurl": "/user/resetPassword",
+        "apiurl": "/resetPassword",
         "apitype": "post",
         "info": {
             "mobile":"18013955700"
@@ -42,23 +28,23 @@ var jsondata = [
     },
     {
         "apiname": "更新用户信息",
-        "apiurl": "/user/modifyInfo",
-        "apitype": "post",
+        "apiurl": "modifyInfo",
+        "apitype": "ws",
         "info": {
-        	"password":"111",
-            "repeatPassword":"111",
-            "verificationCode":"1111",
-            "username":"test",
-            "mobile":"18013955700"
+        	"nickname":"test1",
+            "plateNo":"111",
+            "mobile":"1111",
+            "logo":"test"
+            
         }
     },
     
     {
         "apiname": "根据昵称查询用户",
-        "apiurl": "/user/findLikeName",
-        "apitype": "post",
+        "apiurl": "findLikeName",
+        "apitype": "ws",
         "info": {
-            "namekeyword":"te"
+            "keyword":"te"
         }
     },
     {

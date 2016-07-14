@@ -8,6 +8,7 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
 
+	var wsUri ="ws://localhost:8999/test+test"; 
 
     $(document).ready(function(){
         for(var i=0;i<jsondata.length;i++){
@@ -18,7 +19,17 @@
     });
 
 
-
+    function doajax(){
+   	 $.ajax({
+            type: $("#txtreq").attr("apitype"),
+            url: $("#txtreq").attr("apiurl") ,
+            contentType: "application/json; charset=utf-8",  
+            data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',
+            success: function(data){
+                $("#txtres").val(JSON.stringify(data))
+            }
+        });
+   }
 
 
     function onbindaclick(){
@@ -31,39 +42,10 @@
             })
         })
     }
-
-
-    $(document).ready(function(){
-        $("#sub1").click(function(){
-
-            $.ajax({
-                type: $("#txtreq").attr("apitype"),
-                url: $("#txtreq").attr("apiurl") ,
-                contentType: "application/json; charset=utf-8",  
-                data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',
-                success: function(data){
-                    $("#txtres").val(JSON.stringify(data))
-                }
-
-            });
-        });
-    });
     
     
-    
-    
-    
-    
-    
-    var wsUri ="ws://localhost:8999/test+test"; 
-    var output;  
-    
-    function init() { 
-        output = document.getElementById("output"); 
-        testWebSocket(); 
-    }  
- 
-    function testWebSocket() { 
+    function initws() { 
+     
         websocket = new WebSocket(wsUri); 
         websocket.onopen = function(evt) { 
             onOpen(evt) 
@@ -80,37 +62,54 @@
     }  
  
     function onOpen(evt) { 
-        writeToScreen("CONNECTED"); 
-        doSend("{\"cmd\":\"existsMobile\",\"params\":{\"mobile\":18013955700}}"); 
+    	var params =  $("#txtreq").val();
+    	var requrl = $("#txtreq").attr("apiurl");
+    	
+        doSend("{\"cmd\":\""+requrl+"\",\"params\":"+params+"}"); 
     }  
  
     function onClose(evt) { 
-        writeToScreen("DISCONNECTED"); 
+      
     }  
  
     function onMessage(evt) { 
-        writeToScreen('<span style="color: blue;">RESPONSE: '+ evt.data+'</span>'); 
+    	 $("#txtres").val(evt.data);
         websocket.close(); 
     }  
  
     function onError(evt) { 
-        writeToScreen('<span style="color: red;">ERROR:</span> '+ evt.data); 
+       
     }  
  
     function doSend(message) { 
-        writeToScreen("SENT: " + message);  
+      
         websocket.send(message); 
     }  
  
-    function writeToScreen(message) { 
-        var pre = document.createElement("p"); 
-        pre.style.wordWrap = "break-word"; 
-        pre.innerHTML = message; 
-        output.appendChild(pre); 
-    }  
- 
-    window.addEventListener("load", init, false);  
 
+    $(document).ready(function(){
+        $("#sub1").click(function(){
+            if($("#txtreq").attr("apitype")=="ws"){
+            	initws() ;
+            }else{
+            	doajax();
+            }
+           
+        });
+    });
+    
+    
+  
+    
+    
+    
+    
+    
+    
+   
+    
+  
+ 
  
  
 </script>
