@@ -46,7 +46,7 @@ public class HttpController {
     ApiResult register(@RequestBody RegisterReq req) {
         User user = new User();
         if(!req.getPassword().equals(req.getRepeatPassword())){
-            return ApiResult.successInstance("两次密码不一致");
+            return ApiResult.failedInstance("register", ApiResult.CODE_REPEAT_PASSWORD_DO_NOT_MATCH);
         }
         user.setUsername(req.getUsername());
         user.setNickname(req.getNickname());
@@ -57,7 +57,7 @@ public class HttpController {
         user.setUpdateDate(new Date());
         user.setCreateDate(new Date());
         userService.register(user);
-        return ApiResult.successInstance(user);
+        return ApiResult.successInstance("register", user);
     }
 
     @RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
@@ -66,7 +66,8 @@ public class HttpController {
         if(userService.getUserByMobile(mobile)){
             return ApiResult.successInstance();
         }else{
-            return ApiResult.failedInstance("failed");
+            //// TODO: 16-7-14
+            return ApiResult.failedInstance("existsMobile", ApiResult.CODE_OBJECT_ALREADY_EXISTS);
         }
 
     }
@@ -91,7 +92,7 @@ public class HttpController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return ApiResult.successInstance(verificationCode);
+        return ApiResult.successInstance("getVerificationCode", verificationCode);
     }
 
     void  setMessage() {

@@ -43,18 +43,17 @@ public class UserController {
 		return ApiResult.successInstance();
 	}
 
-    public ApiResult findLikeName(@RequestParam("keyword") String keyword) {
-		List<User> list = userService.getUserFindLikeName(keyword);
-		return ApiResult.successInstance(list);
+    public List<User> findLikeName(@RequestParam("keyword") String keyword) {
+		return userService.getUserFindLikeName(keyword);
 	}
 
-	public ApiResult listAll() {
+	public List<UserInfo> listAll() {
 		List<User> userList = userService.getUserfindAll();
         List<UserInfo> userInfos = new ArrayList<>();
 		if(!CollectionUtils.isEmpty(userList))
 			for(User user:userList)
 				userInfos.add(new UserInfo(user));
-        return ApiResult.successInstance(userInfos);
+        return userInfos;
 	}
 
 

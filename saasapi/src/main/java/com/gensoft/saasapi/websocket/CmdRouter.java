@@ -3,7 +3,6 @@ package com.gensoft.saasapi.websocket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gensoft.core.web.ApiResult;
-import com.sun.deploy.util.ArrayUtil;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 
 import java.util.Arrays;

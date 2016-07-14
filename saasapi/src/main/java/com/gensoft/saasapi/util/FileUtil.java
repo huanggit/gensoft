@@ -1,5 +1,7 @@
 package com.gensoft.saasapi.util;
 
+import com.gensoft.core.web.ApiResult;
+import com.gensoft.core.web.BusinessException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +16,7 @@ public class FileUtil {
     @Value("${fileupload.path}")
     private String logoImgPath;
 
-    public String saveBytes(byte[] bytes){
+    public String saveBytes(byte[] bytes) throws BusinessException {
         File file = createNewFile("test");
         FileOutputStream fos = null;
         BufferedOutputStream bos = null;
@@ -23,10 +25,9 @@ public class FileUtil {
             bos = new BufferedOutputStream(fos);
             bos.write(bytes);
             return file.getPath();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
+            //// TODO: 16-7-14 log
+            throw new BusinessException(ApiResult.CODE_FILE_SAVE_ERROR);
         }finally {
             if (bos != null) {
                 try {
@@ -43,7 +44,6 @@ public class FileUtil {
                 }
             }
         }
-        return null;
     }
 
     public File createNewFile(String name){

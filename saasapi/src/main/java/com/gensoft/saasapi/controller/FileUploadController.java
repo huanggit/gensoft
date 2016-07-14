@@ -30,12 +30,12 @@ public class FileUploadController {
 		String fileName = multipartFile.getOriginalFilename();
 		long size =  multipartFile.getSize();
 		if(size>=1048576 ){
-			return ApiResult.failedInstance("上传文件请保持在1M以下！");
+			return ApiResult.failedInstance("uploadlogo",ApiResult.CODE_FILE_SIZE_EXCEEDS_1_M);
 		}
     	int lidex = fileName.lastIndexOf(".");
     	String prefix = fileName.substring(lidex);
     	if(!prefix.endsWith("jpg")){
-    		return ApiResult.failedInstance("上传文件类型错误！");
+    		return ApiResult.failedInstance("uploadlogo", ApiResult.CODE_FILE_INVALID_FORMAT);
     	}
 		File newfile = fileUtil.createNewFile(prefix);
 		try {
@@ -45,7 +45,7 @@ public class FileUploadController {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return ApiResult.successInstance(newfile.getPath()); 
+		return ApiResult.successInstance("uploadlogo", newfile.getPath());
     }
       
    

@@ -27,29 +27,28 @@ public class UserFriendsController {
     @Autowired
     private UserFriendService userFriendService;
 
-	public ApiResult listMine(@Login UserInfo userInfo) {
-    	UserInfo userInfo1 = new UserInfo();
-    	List<UserFriend> list = userFriendService.getUserFriendByUid(userInfo1.getId());
-        return ApiResult.successInstance(list);
+    public List<UserFriend> listMine(@Login UserInfo userInfo) {
+        UserInfo userInfo1 = new UserInfo();
+        return userFriendService.getUserFriendByUid(userInfo1.getId());
     }
 
-	public ApiResult add(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
-    	UserFriend userFriend = new UserFriend();
-    	userFriend.setUserId(userInfo.getId());
-    	userFriend.setFriendId(friendId);
-    	userFriend.setCreateById(userInfo.getId());
-    	userFriend.setCreateDate(new Date());
-    	userFriend.setUpdateById(userInfo.getId());
-    	userFriend.setUpdateDate(new Date());
-    	userFriendService.addUserFriend(userFriend);
+    public ApiResult add(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
+        UserFriend userFriend = new UserFriend();
+        userFriend.setUserId(userInfo.getId());
+        userFriend.setFriendId(friendId);
+        userFriend.setCreateById(userInfo.getId());
+        userFriend.setCreateDate(new Date());
+        userFriend.setUpdateById(userInfo.getId());
+        userFriend.setUpdateDate(new Date());
+        userFriendService.addUserFriend(userFriend);
         return ApiResult.successInstance();
     }
 
-	public ApiResult delete(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
-    	UserFriend userFriend = new UserFriend();
-    	userFriend.setUserId(userInfo.getId());
-    	userFriend.setFriendId(friendId);
-    	userFriendService.delUserFriend(userFriend);
+    public ApiResult delete(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
+        UserFriend userFriend = new UserFriend();
+        userFriend.setUserId(userInfo.getId());
+        userFriend.setFriendId(friendId);
+        userFriendService.delUserFriend(userFriend);
         return ApiResult.successInstance();
     }
 

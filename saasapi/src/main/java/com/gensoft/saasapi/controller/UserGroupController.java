@@ -32,14 +32,12 @@ public class UserGroupController {
 	@Autowired
 	private UserGroupTagService userGroupTagService;
 
-	public ApiResult listMine(@Login UserInfo userInfo) {
-		List<UserGroup> list = userGroupService.getMyGroup(userInfo.getId());
-		return ApiResult.successInstance(list);
+	public List<UserGroup> listMine(@Login UserInfo userInfo) {
+		return userGroupService.getMyGroup(userInfo.getId());
 	}
 
-	public ApiResult listTags() {
-		List<UserGroupTag> list = userGroupTagService.getAllUserGroupTag();
-		return ApiResult.successInstance(list);
+	public List<UserGroupTag> listTags() {
+		return userGroupTagService.getAllUserGroupTag();
 	}
 
 	public ApiResult add(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {
@@ -64,9 +62,8 @@ public class UserGroupController {
 		return ApiResult.successInstance();
 	}
 
-	public ApiResult detail(@Login UserInfo userInfo, @RequestParam("groupId") Long groupId) {
-		UserGroup userGroup = userGroupService.getUserGroupdetail(groupId);
-		return ApiResult.successInstance(userGroup);
+	public UserGroup detail(@Login UserInfo userInfo, @RequestParam("groupId") Long groupId) {
+		return userGroupService.getUserGroupdetail(groupId);
 	}
 
 	public ApiResult modifyInfo(@Login UserInfo userInfo, @RequestBody UserGroupEntity req) {

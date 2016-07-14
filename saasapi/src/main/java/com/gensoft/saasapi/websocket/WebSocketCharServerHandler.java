@@ -1,21 +1,11 @@
 package com.gensoft.saasapi.websocket;
 
 import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gensoft.core.pojo.UserInfo;
-import com.gensoft.dao.chat.UserChat;
-import com.gensoft.dao.chat.UserChatRepository;
-import com.gensoft.dao.user.User;
+
 import com.gensoft.saasapi.cache.UserInfoCache;
-import com.gensoft.saasapi.pojo.chat.ChatMessage;
-import com.gensoft.saasapi.service.ChatService;
-import com.gensoft.saasapi.service.UserService;
-import io.netty.buffer.ByteBuf;
 import io.netty.channel.*;
 import io.netty.handler.codec.http.*;
 import io.netty.handler.codec.http.websocketx.*;

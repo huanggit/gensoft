@@ -1,7 +1,6 @@
 package com.gensoft.saasapi.websocket;
 
 import com.gensoft.core.pojo.UserInfo;
-import com.gensoft.core.web.ApiResult;
 import com.gensoft.dao.user.User;
 import com.gensoft.saasapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
