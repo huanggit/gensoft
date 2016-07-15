@@ -17,6 +17,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,9 +49,6 @@ public class HttpController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     ApiResult register(@RequestBody RegisterReq req) {
-        if (!req.getPassword().equals(req.getRepeatPassword())) {
-            return ApiResult.failedInstance("register", ApiResult.CODE_REPEAT_PASSWORD_DO_NOT_MATCH);
-        }
         Long mobile = req.getMobile();
         if (userService.getUserByMobile(mobile))
             ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);

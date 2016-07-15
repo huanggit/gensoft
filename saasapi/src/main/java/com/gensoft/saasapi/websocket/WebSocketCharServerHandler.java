@@ -144,7 +144,7 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
     }
 
     private void routerResponse(CmdRouter cmdRouter, Channel channel) {
-        TextWebSocketFrame response = cmdRouter.getResponse();
+        WebSocketFrame response = cmdRouter.getResponse();
         List<Long> receivers = cmdRouter.getReceivers();
         if (CollectionUtils.isEmpty(receivers)) {
             channel.writeAndFlush(response);

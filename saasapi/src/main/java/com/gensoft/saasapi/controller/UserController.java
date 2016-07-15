@@ -5,6 +5,7 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.gensoft.core.annotation.WebSocketController;
 import com.gensoft.core.web.BusinessException;
 import com.gensoft.saasapi.cache.UserInfoCache;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import com.gensoft.saasapi.service.UserService;
  * Created by alan on 16-5-20.
  */
 @Component
+@WebSocketController
 public class UserController {
 
     @Autowired

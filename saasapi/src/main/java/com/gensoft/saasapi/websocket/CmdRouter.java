@@ -3,7 +3,10 @@ package com.gensoft.saasapi.websocket;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gensoft.core.web.ApiResult;
+import io.netty.buffer.ByteBuf;
+import io.netty.handler.codec.http.websocketx.BinaryWebSocketFrame;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,11 +18,11 @@ public class CmdRouter {
 
     private ObjectMapper objectMapper = new ObjectMapper();
 
-    private TextWebSocketFrame response;
+    private WebSocketFrame response;
 
     private List<Long> receivers;
 
-    public TextWebSocketFrame getResponse() {
+    public WebSocketFrame getResponse() {
         return response;
     }
 
@@ -51,5 +54,9 @@ public class CmdRouter {
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
+    }
+
+    public CmdRouter(ByteBuf byteBuf) {
+        this.response = new BinaryWebSocketFrame(byteBuf);
     }
 }

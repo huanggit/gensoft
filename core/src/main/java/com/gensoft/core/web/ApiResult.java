@@ -8,9 +8,11 @@ import java.io.UnsupportedEncodingException;
 @SuppressWarnings("unchecked")
 public class ApiResult<T> {
 
+    //成功
     public static final int CODE_SUCCESS = 0;
-    //程序bug
+    //程序未处理bug
     public static final int CODE_UNHANDLED_BUG = 1;
+
     //方法名调用错误
     public static final int CODE_INVALID_CMD = 11;
     //参数调用错误
@@ -21,24 +23,26 @@ public class ApiResult<T> {
     public static final int CODE_RETURN_OBJECT_IS_NULL = 14;
 
 
-    //用户名或密码错误
-    public static final int CODE_USER_PASSWORD_DO_NOT_MATCH = 102;
-    //两次密码不一致
-    public static final int CODE_REPEAT_PASSWORD_DO_NOT_MATCH =103;
     //上传文件类型错误
-    public static final int CODE_FILE_INVALID_FORMAT = 104;
+    public static final int CODE_FILE_INVALID_FORMAT = 110;
     //文件大小超过1M
-    public static final int CODE_FILE_SIZE_EXCEEDS_1_M = 105;
+    public static final int CODE_FILE_SIZE_EXCEEDS_1_M = 111;
+    //文件不存在
+    public static final int CODE_FILE_DONOT_EXISTS = 112;
     //服务器保存文件错误
-    public static final int CODE_FILE_SAVE_ERROR = 106;
+    public static final int CODE_FILE_SAVE_ERROR = 113;
+
+    //用户名或密码错误
+    //public static final int CODE_USER_PASSWORD_DO_NOT_MATCH = 120;
     //验证码错误
-    public static final int CODE_INVALIDE_VERIFICATION_CODE = 107;
+    public static final int CODE_INVALIDE_VERIFICATION_CODE = 121;
     //电话号码已存在
-    public static final int CODE_MOBILE_ALREADY_EXISTS = 108;
+    public static final int CODE_MOBILE_ALREADY_EXISTS = 122;
     //用户名称已存在
-    public static final int CODE_USERNAME_ALREADY_EXISTS = 109;
+    public static final int CODE_USERNAME_ALREADY_EXISTS = 123;
     //好友已存在
-    public static final int CODE_USER_FRIEND_ALREADY_EXISTS = 110;
+    public static final int CODE_USER_FRIEND_ALREADY_EXISTS = 124;
+
 
     /* */
     public static ApiResult successInstance() {

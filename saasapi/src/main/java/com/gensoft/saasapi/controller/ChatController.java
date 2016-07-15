@@ -1,6 +1,7 @@
 package com.gensoft.saasapi.controller;
 
 import com.gensoft.core.annotation.Login;
+import com.gensoft.core.annotation.WebSocketController;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
 import com.gensoft.dao.chat.GroupChat;
@@ -20,6 +21,7 @@ import java.util.List;
  * Created by alan on 16-7-5.
  */
 @Component
+@WebSocketController
 public class ChatController {
 
     @Autowired

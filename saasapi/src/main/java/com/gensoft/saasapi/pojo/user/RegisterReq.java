@@ -11,8 +11,6 @@ public class RegisterReq {
     @NotNull
     private String password;
     @NotNull
-    private String repeatPassword;
-    @NotNull
     private String nickname;
     @NotNull
     private long mobile;
@@ -37,14 +35,6 @@ public class RegisterReq {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getRepeatPassword() {
-        return repeatPassword;
-    }
-
-    public void setRepeatPassword(String repeatPassword) {
-        this.repeatPassword = repeatPassword;
     }
 
     public String getNickname() {

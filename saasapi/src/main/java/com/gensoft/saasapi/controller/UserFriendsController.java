@@ -1,6 +1,7 @@
 package com.gensoft.saasapi.controller;
 
 import com.gensoft.core.annotation.Login;
+import com.gensoft.core.annotation.WebSocketController;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
 import com.gensoft.core.web.BusinessException;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by alan on 16-5-24.
  */
 @Component
+@WebSocketController
 public class UserFriendsController {
 
     @Autowired

@@ -9,7 +9,6 @@ var jsondata = [
             "username":"test1",
             "nickname":"nickname",
             "password":"123456",
-            "repeatPassword":"123456",
             "logo":"aa.jpg",
             "mobile":"18013955700",
             "plateNo":"苏A 199BS2",
@@ -131,11 +130,17 @@ var jsondata = [
         "info": {
             "groupId": 1,
             "userId": 2
-
         }
     },
 
-
+    {
+        "apiname": "下载文件",
+        "apiurl": "downloadFile",
+        "apitype": "ws",
+        "info": {
+            "filePath": "/tmp/saasapi/1.txt"
+        }
+    },
 
 
 
