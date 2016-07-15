@@ -108,10 +108,15 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
     }
 
     private String getIpAddress(Channel channel, FullHttpRequest request) {
-        String clientIP = request.headers().get("X-Forwarded-For").toString();
-        if (clientIP == null) {
-            InetSocketAddress insocket = (InetSocketAddress) channel.remoteAddress();
-            clientIP = insocket.getAddress().getHostAddress();
+        String clientIP = null;
+        try {
+            clientIP = String.valueOf(request.headers().get("X-Forwarded-For"));
+            if (clientIP == null) {
+                InetSocketAddress insocket = (InetSocketAddress) channel.remoteAddress();
+                clientIP = insocket.getAddress().getHostAddress();
+            }
+        } catch (Exception e) {
+
         }
         return clientIP;
     }

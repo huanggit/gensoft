@@ -10,13 +10,13 @@ public class RegisterReq {
     private String username;
     @NotNull
     private String password;
-  
+    @NotNull
     private String repeatPassword;
     @NotNull
     private String nickname;
     @NotNull
     private long mobile;
-  
+    @NotNull
     private String verificationCode;
 
     private String plateNo;

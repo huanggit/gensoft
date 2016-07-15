@@ -6,13 +6,11 @@ spring.profiles.active: dev
 
 
 --- #------------------------- production ----------------------------
-#logging.path: /var/log
-#logging.level.root: INFO
+#logging:
+#  file: logs/saasapi.log
+#  level: INFO
 
 --- #------------------------- program ----------------------------
-logging:
-  file: logs/saasapi.log
-  level: debug
 
 monitor:
   homeMessage: |

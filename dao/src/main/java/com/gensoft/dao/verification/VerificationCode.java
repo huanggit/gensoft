@@ -11,14 +11,14 @@ import java.util.Date;
 @Table(name = "user_verification_code")
 public class VerificationCode {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     protected Long id;
     @NotNull
-    private Long userId;
+    private Long mobile;
     @NotNull
     private Integer codeType;
     @NotNull
-    private Integer verificationCode;
+    private String verificationCode;
     private Date createDate;
     private Date updateDate;
 
@@ -31,12 +31,12 @@ public class VerificationCode {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getMobile() {
+        return mobile;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setMobile(Long mobile) {
+        this.mobile = mobile;
     }
 
     public Integer getCodeType() {
@@ -47,11 +47,11 @@ public class VerificationCode {
         this.codeType = codeType;
     }
 
-    public Integer getVerificationCode() {
+    public String getVerificationCode() {
         return verificationCode;
     }
 
-    public void setVerificationCode(Integer verificationCode) {
+    public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
 

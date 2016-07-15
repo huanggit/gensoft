@@ -80,13 +80,13 @@ CREATE TABLE `user_group_map` (
 DROP TABLE IF EXISTS `user_verification_code`;
 CREATE TABLE `user_verification_code` (
   id int(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  user_id int(15) NOT NULL COMMENT '用户id',
+  mobile BIGINT(12) NOT NULL COMMENT '用户手机',
   code_type int(2) NOT NULL COMMENT '验证码类型：1 注册, 2 找回密码',
-  verification_code int(15) NOT NULL COMMENT '验证码',
+  verification_code varchar(10) NOT NULL COMMENT '验证码',
   create_date DATE DEFAULT NULL COMMENT '创建时间',
-  updat_date DATE DEFAULT NULL COMMENT '更新时间',
-  INDEX verification_code_user_and_type (user_id, code_type)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8  COMMENT '用户验证码表';
+  update_date DATE DEFAULT NULL COMMENT '更新时间',
+  INDEX verification_code_mobile_and_type (mobile, code_type)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8  COMMENT '用户手机验证码表';
 
 DROP TABLE IF EXISTS `user_chat`;
 CREATE TABLE `user_chat` (

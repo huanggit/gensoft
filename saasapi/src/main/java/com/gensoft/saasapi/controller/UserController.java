@@ -56,6 +56,11 @@ public class UserController {
         return userInfos;
 	}
 
-
+	ApiResult resetPassword(@Login UserInfo userInfo, @RequestBody ResetPasswordReq req) {
+		//// TODO: 16-7-15
+		User user = userService.getUserById(userInfo.getId());
+		userService.update(user);
+		return ApiResult.successInstance();
+	}
 
 }

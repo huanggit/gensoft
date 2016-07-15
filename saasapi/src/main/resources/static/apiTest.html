@@ -35,6 +35,7 @@
     function onbindaclick(){
         $("a").each(function(i,v){
             $(this).click(function(){
+                $("#txtres").val('');
                 $("#txtreq").val(JSON.stringify(jsondata[i].info));
                 $("#txturl").val(JSON.stringify(jsondata[i].apiurl));
                 $("#txtreq").attr("apiurl", jsondata[i].apiurl);

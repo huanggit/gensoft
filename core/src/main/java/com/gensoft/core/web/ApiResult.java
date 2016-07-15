@@ -32,6 +32,8 @@ public class ApiResult<T> {
     public static final int CODE_FILE_SIZE_EXCEEDS_1_M = 105;
     //服务器保存文件错误
     public static final int CODE_FILE_SAVE_ERROR = 106;
+    //验证码错误
+    public static final int CODE_INVALIDE_VERIFICATION_CODE = 107;
 
     /* */
     public static ApiResult successInstance() {
@@ -51,10 +53,12 @@ public class ApiResult<T> {
     }
 
     public ApiResult(String cmd, int code) {
+        this.cmd = cmd;
         this.code = code;
     }
 
     public ApiResult(String cmd, int code, T result) {
+        this.cmd = cmd;
         this.code = code;
         this.result = result;
     }

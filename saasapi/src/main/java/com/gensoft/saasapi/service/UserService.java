@@ -2,9 +2,12 @@ package com.gensoft.saasapi.service;
 
 import com.gensoft.dao.user.User;
 import com.gensoft.dao.user.UserRepository;
+import com.gensoft.dao.verification.VerificationCode;
+import com.gensoft.dao.verification.VerificationCodeRepository;
 import com.gensoft.saasapi.pojo.user.RegisterReq;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 
+
 	@Transactional
 	public void register(User user) {
 		userRepository.save(user);
@@ -29,12 +33,9 @@ public class UserService {
 		return userRepository.findByUsername(username);
 	}
 
-	public boolean getUserByMobile(String mobile) {
-		List<User>  user = userRepository.getUserByMobile(new Long(mobile));
-		if(user.size()>0){
-			return true;
-		}
-		return false;
+	public boolean getUserByMobile(Long mobile) {
+		List<User>  user = userRepository.getUserByMobile(mobile);
+		return (user.size()>0);
 	}
 	
 	public List<User> getUserfindAll() {
@@ -53,4 +54,5 @@ public class UserService {
 	public void update(User user){
 		userRepository.save(user);
 	}
+
 }

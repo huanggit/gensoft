@@ -1,20 +1,37 @@
 var jsondata = [
+
+
+    {
+        "apiname": "注册(http)",
+        "apiurl": "/register",
+        "apitype": "post",
+        "info": {
+            "username":"test1",
+            "nickname":"nickname",
+            "password":"123456",
+            "repeatPassword":"123456",
+            "logo":"aa.jpg",
+            "mobile":"18013955700",
+            "plateNo":"苏A 199BS2",
+            "verificationCode":"code"
+        }
+    }    ,
     
     {
-        "apiname": "判断手机号是否重复",
+        "apiname": "判断手机号是否重复(http)",
         "apiurl": "/existsMobile",
         "apitype": "post",
         "info": {
-            "mobile":"18013955700"
+            "mobile": 18013955701
         }
     },
    
     {
-        "apiname": "发送短信验证码",
+        "apiname": "发送短信验证码(http)",
         "apiurl": "/getVerificationCode",
         "apitype": "post",
         "info": {
-            "mobile":"18013955700"
+            "mobile": 18013955700
         }
     },
     {
@@ -107,18 +124,6 @@ var jsondata = [
             "groupId":"1",
             "userIds":"1,2,3"
             
-        }
-    },
-    {
-        "apiname": "注册",
-        "apiurl": "/user/register", 
-        "apitype": "post",
-        "info": {
-            "username":"aaa",
-            "nickname":"aaa",
-            "password":"123456",
-            "logo":"aa.jpg",
-            "mobile":"18013955700"
         }
     }
 ]
