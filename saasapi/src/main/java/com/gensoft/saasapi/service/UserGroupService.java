@@ -45,9 +45,9 @@ public class UserGroupService {
 	}
 
 	@Transactional
-	public void delUserGroup(UserGroup userGroup) {
-		userGroupMapRepository.delUserGroupMapById(userGroup.getId());
-		userGroupRepository.delete(userGroup);
+	public void delUserGroup(Long groupId) {
+		userGroupMapRepository.delUserGroupMapById(groupId);
+		userGroupRepository.delete(groupId);
 	}
 
 	public UserGroup getUserGroupdetail(long groupId) {
@@ -67,5 +67,7 @@ public class UserGroupService {
 		return receivers;
 	}
 
-	
+	public boolean existsGroupUser(Long groupId, Long userId){
+		return null != userGroupMapRepository.getGroupUsers(groupId);
+	}
 }

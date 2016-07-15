@@ -20,8 +20,7 @@ public class ApiResult<T> {
     //返回结果为null
     public static final int CODE_RETURN_OBJECT_IS_NULL = 14;
 
-    //已存在
-    public static final int CODE_OBJECT_ALREADY_EXISTS = 100;
+
     //用户名或密码错误
     public static final int CODE_USER_PASSWORD_DO_NOT_MATCH = 102;
     //两次密码不一致
@@ -34,6 +33,12 @@ public class ApiResult<T> {
     public static final int CODE_FILE_SAVE_ERROR = 106;
     //验证码错误
     public static final int CODE_INVALIDE_VERIFICATION_CODE = 107;
+    //电话号码已存在
+    public static final int CODE_MOBILE_ALREADY_EXISTS = 108;
+    //用户名称已存在
+    public static final int CODE_USERNAME_ALREADY_EXISTS = 109;
+    //好友已存在
+    public static final int CODE_USER_FRIEND_ALREADY_EXISTS = 110;
 
     /* */
     public static ApiResult successInstance() {

@@ -5,6 +5,8 @@ import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.gensoft.core.web.BusinessException;
+import com.gensoft.saasapi.cache.UserInfoCache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
@@ -29,38 +31,44 @@ import com.gensoft.saasapi.service.UserService;
 @Component
 public class UserController {
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-    public ApiResult modifyInfo(@Login UserInfo userInfo, @RequestBody ModifyUserInfoReq req) {
-		User user = userService.getUserById(userInfo.getId());
-		user.setNickname(req.getNickname());
-		//Todo - mobile must be unique
-		user.setMobile(req.getMobile());
-		user.setPlateNo(req.getPlateNo());
-		user.setLogo(req.getLogo());
-		userService.update(user);
-		return ApiResult.successInstance();
-	}
+    @Autowired
+    UserInfoCache userInfoCache;
 
-    public List<User> findLikeName(@RequestParam("keyword") String keyword) {
-		return userService.getUserFindLikeName(keyword);
-	}
+    public ApiResult modifyUserInfo(@Login UserInfo userInfo, @RequestBody ModifyUserInfoReq req) throws BusinessException {
+        Long mobile = req.getMobile();
+        if (userService.getUserByMobile(mobile))
+            throw new BusinessException(ApiResult.CODE_MOBILE_ALREADY_EXISTS);
+        User user = userService.getUserById(userInfo.getId());
+        user.setNickname(req.getNickname());
+        user.setMobile(mobile);
+        user.setPlateNo(req.getPlateNo());
+        user.setLogo(req.getLogo());
+        userService.update(user);
+        userInfoCache.refreshUserMap();
+        return ApiResult.successInstance();
+    }
 
-	public List<UserInfo> listAll() {
-		List<User> userList = userService.getUserfindAll();
+    public List<User> findUsersLikeName(@RequestParam("keyword") String keyword) {
+        return userService.getUserFindLikeName(keyword);
+    }
+
+    public List<UserInfo> listAllUsers() {
+        List<User> userList = userService.getUserfindAll();
         List<UserInfo> userInfos = new ArrayList<>();
-		if(!CollectionUtils.isEmpty(userList))
-			for(User user:userList)
-				userInfos.add(new UserInfo(user));
+        if (!CollectionUtils.isEmpty(userList))
+            for (User user : userList)
+                userInfos.add(new UserInfo(user));
         return userInfos;
-	}
+    }
 
-	ApiResult resetPassword(@Login UserInfo userInfo, @RequestBody ResetPasswordReq req) {
-		//// TODO: 16-7-15
-		User user = userService.getUserById(userInfo.getId());
-		userService.update(user);
-		return ApiResult.successInstance();
-	}
+    ApiResult resetUserPassword(@Login UserInfo userInfo, @RequestBody ResetPasswordReq req) {
+        //// TODO: 16-7-15
+        User user = userService.getUserById(userInfo.getId());
+        //userService.update(user);
+        return ApiResult.successInstance();
+    }
 
 }

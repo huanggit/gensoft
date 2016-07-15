@@ -17,10 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserGroupMapRepository extends CrudRepository<UserGroupMap, Long> {
 
 	@Modifying
-	@Query("delete  from UserGroupMap  where groupId=?1 ")
+	@Query("delete  from UserGroupMap where groupId=?1 ")
     public int delUserGroupMapById(long groupId);
 
-	@Query("select userId from UserGroupMap  where groupId=?1")
+	@Query("select userId from UserGroupMap where groupId=?1")
 	public List<Long> getGroupUsers(long groupId);
+
+	@Query("select 1 from UserGroupMap where groupId=?1 and userId=?2")
+	public Integer existsGroupUser(long groupId, long userId);
 	
 }

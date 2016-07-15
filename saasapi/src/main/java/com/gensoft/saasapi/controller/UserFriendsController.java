@@ -3,9 +3,12 @@ package com.gensoft.saasapi.controller;
 import com.gensoft.core.annotation.Login;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.web.ApiResult;
+import com.gensoft.core.web.BusinessException;
 import com.gensoft.dao.userfriends.UserFriend;
+import com.gensoft.saasapi.cache.UserInfoCache;
 import com.gensoft.saasapi.service.UserFriendService;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -27,28 +30,38 @@ public class UserFriendsController {
     @Autowired
     private UserFriendService userFriendService;
 
-    public List<UserFriend> listMine(@Login UserInfo userInfo) {
-        UserInfo userInfo1 = new UserInfo();
-        return userFriendService.getUserFriendByUid(userInfo1.getId());
+    @Autowired
+    UserInfoCache userInfoCache;
+
+    public List<UserInfo> listMyFriends(@Login UserInfo userInfo) {
+        List<UserFriend> userFriends = userFriendService.getUserFriendByUid(userInfo.getId());
+        List<UserInfo> userInfos = new ArrayList<>();
+        for (UserFriend userFriend : userFriends) {
+            UserInfo user = userInfoCache.getUserInfoById(userFriend.getFriendId());
+            userInfos.add(user);
+        }
+        return userInfos;
     }
 
-    public ApiResult add(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
+    public ApiResult addFriend(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) throws BusinessException {
+        Long userId = userInfo.getId();
+        if(userFriendService.existsUserFriend(userId, friendId))
+            throw new BusinessException(ApiResult.CODE_USER_FRIEND_ALREADY_EXISTS);
         UserFriend userFriend = new UserFriend();
-        userFriend.setUserId(userInfo.getId());
+        userFriend.setUserId(userId);
         userFriend.setFriendId(friendId);
-        userFriend.setCreateById(userInfo.getId());
+        userFriend.setCreateById(userId);
         userFriend.setCreateDate(new Date());
-        userFriend.setUpdateById(userInfo.getId());
+        userFriend.setUpdateById(userId);
         userFriend.setUpdateDate(new Date());
         userFriendService.addUserFriend(userFriend);
         return ApiResult.successInstance();
     }
 
-    public ApiResult delete(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
-        UserFriend userFriend = new UserFriend();
-        userFriend.setUserId(userInfo.getId());
-        userFriend.setFriendId(friendId);
-        userFriendService.delUserFriend(userFriend);
+    public ApiResult deleteFriend(@Login UserInfo userInfo, @RequestParam("friendId") Long friendId) {
+        UserFriend userFriend = userFriendService.getUserFriend(userInfo.getId(), friendId);
+        if (null != userFriend)
+            userFriendService.delUserFriend(userFriend);
         return ApiResult.successInstance();
     }
 

@@ -1,5 +1,7 @@
 package com.gensoft.dao;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Date;
 
 import javax.persistence.GeneratedValue;
@@ -22,11 +24,16 @@ public abstract class BaseEntity {
     @GeneratedValue(strategy=GenerationType.AUTO)
     protected Long id;
     //0:无效 1:有效
+    @JsonIgnore
     protected Integer status=1;
     //创建信息
+    @JsonIgnore
     protected Long createById;
+    @JsonIgnore
     protected Date createDate;
+    @JsonIgnore
     protected Long updateById;
+    @JsonIgnore
     protected Date updateDate;
     
     public Long getId() {

@@ -53,7 +53,7 @@ public class CmdHandler extends ApplicationObjectSupport {
     public CmdRouter handleText(TextWebSocketFrame frame, UserInfo userInfo) {
         CmdRouter cmdRouter = null;
         String request = frame.text();
-        logger.info("[request by {}]: {}.", userInfo.getId(), request);
+        logger.info("[request] user: {}, json: {}.", userInfo.getId(), request);
         try {
             Map<String, Object> paramMap = new HashMap<>();
             paramMap = objectMapper.readValue(request, paramMap.getClass());
@@ -85,9 +85,9 @@ public class CmdHandler extends ApplicationObjectSupport {
                 logger.error("[bug]", e);
                 cmdRouter = new CmdRouter(ApiResult.failedInstance(cmd, ApiResult.CODE_UNHANDLED_BUG));
             }
-            logger.info("[response by {}]: {}.", userInfo.getId(), objectMapper.writeValueAsString(cmdRouter));
+            logger.info("[response] user: {}, json: {}, receiver: {}.", userInfo.getId(), cmdRouter.getResponse().text(), cmdRouter.getReceivers());
         } catch (IOException e) {
-            logger.info("[response by {}]: bad json format for request: {}.", userInfo.getId(), request);
+            logger.info("[response] user: {}, bad json format for request: {}.", userInfo.getId(), request);
             cmdRouter = new CmdRouter(ApiResult.failedInstance("bad_json_format_request", ApiResult.CODE_INVALID_JSON_FORMAT_REQUEST));
         }
         return cmdRouter;
@@ -96,18 +96,15 @@ public class CmdHandler extends ApplicationObjectSupport {
     public CmdRouter handleBinary(BinaryWebSocketFrame frame, UserInfo userInfo) {
         CmdRouter cmdRouter = null;
         try {
-            try {
-                ByteBuf buf = frame.content();
-                byte[] content = new byte[buf.capacity()];
-                buf.readBytes(content);
-                String filePath = fileUtil.saveBytes(content);
-                cmdRouter = new CmdRouter(ApiResult.successInstance("uploadFile", filePath));
-            } catch (BusinessException e) {
-                cmdRouter = new CmdRouter(ApiResult.failedInstance("uploadFile", e.getCode()));
-            }
-            logger.info("[response by {}]: {}.", userInfo.getId(), objectMapper.writeValueAsString(cmdRouter));
-        } catch (JsonProcessingException e) {
+            ByteBuf buf = frame.content();
+            byte[] content = new byte[buf.capacity()];
+            buf.readBytes(content);
+            String filePath = fileUtil.saveBytes(content);
+            cmdRouter = new CmdRouter(ApiResult.successInstance("uploadFile", filePath));
+        } catch (BusinessException e) {
+            cmdRouter = new CmdRouter(ApiResult.failedInstance("uploadFile", e.getCode()));
         }
+        logger.info("[response] user: {}, json: {}, receiver: {}.", userInfo.getId(), cmdRouter.getResponse().text(), cmdRouter.getReceivers());
         return cmdRouter;
     }
 

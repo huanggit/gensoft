@@ -22,13 +22,23 @@ public class UserFriendService {
     
     
     public void delUserFriend(UserFriend userFriend){
-    	userFriendRepository.delUserFriendByUid(userFriend.getUserId(), userFriend.getFriendId());
+    	userFriendRepository.delete(userFriend.getId());
     }
     
     public void addUserFriend(UserFriend userFriend){
     	userFriendRepository.save(userFriend);
     }
+
     public List<UserFriend> getUserFriendByUid(long userId){
     	return userFriendRepository.getUserFriendByUid(userId);
+    }
+
+    public boolean existsUserFriend(long userId,long friendId){
+        UserFriend exists = userFriendRepository.existsUserFriend(userId, friendId);
+        return null != exists;
+    }
+
+    public UserFriend getUserFriend(long userId,long friendId){
+        return userFriendRepository.existsUserFriend(userId, friendId);
     }
 }

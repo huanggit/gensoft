@@ -39,12 +39,12 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("客户端与服务端连接开启");
+        logger.debug("ip {} channel active.", ctx.channel().remoteAddress());
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("客户端与服务端连接关闭");
+        logger.debug("ip {} channel inactive.", ctx.channel().remoteAddress());
         userInfoCache.removeChannel(ctx.channel());
     }
 
@@ -74,13 +74,14 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
                                    FullHttpRequest request) {
         Channel channel = ctx.channel();
         String userIp = getIpAddress(channel, request);
-
-        if (!"websocket".equals(request.headers().get("Upgrade"))) {
-            ChannelFuture f = channel.writeAndFlush(new DefaultFullHttpResponse(
-                    HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
-            f.addListener(ChannelFutureListener.CLOSE);
-            return;
-        }
+        logger.debug("ip {} attempt to connect to the server.", userIp);
+//        if (!"websocket".equals(request.headers().get("Upgrade"))) {
+//            logger.debug("ip {} don't have Upgrade http header.", userIp);
+//            ChannelFuture f = channel.writeAndFlush(new DefaultFullHttpResponse(
+//                    HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
+//            f.addListener(ChannelFutureListener.CLOSE);
+//            return;
+//        }
 
         WebSocketServerHandshakerFactory wsShakerFactory = new WebSocketServerHandshakerFactory(
                 "ws://" + request.headers().get(HttpHeaderNames.HOST), null, false);
@@ -97,6 +98,7 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
 
         WebSocketServerHandshaker wsShakerHandler = wsShakerFactory.newHandshaker(request);
         if (null == wsShakerHandler) {
+            logger.debug("ip {} use the websocket of an unsupported version.", userIp);
             //无法处理的websocket版本
             wsShakerFactory.sendUnsupportedVersionResponse(channel);
         } else {
@@ -130,19 +132,14 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
         if (frame instanceof PingWebSocketFrame) {
             channel.write(new PongWebSocketFrame(frame.content().retain()));
             return;
-        } else {
-            if (frame instanceof TextWebSocketFrame) {
-                CmdRouter cmdRouter = cmdHandler.handleText((TextWebSocketFrame) frame, userInfo);
-                routerResponse(cmdRouter, channel);
-
-            } else if (frame instanceof BinaryWebSocketFrame) {
-                CmdRouter cmdRouter = cmdHandler.handleBinary((BinaryWebSocketFrame) frame, userInfo);
-                routerResponse(cmdRouter, channel);
-
-            } else if (frame instanceof CloseWebSocketFrame) {
-//            wsShakerHandler.close(ctx.channel(), (CloseWebSocketFrame) frame
-//                    .retain());
-            }
+        } else if (frame instanceof TextWebSocketFrame) {
+            CmdRouter cmdRouter = cmdHandler.handleText((TextWebSocketFrame) frame, userInfo);
+            routerResponse(cmdRouter, channel);
+        } else if (frame instanceof BinaryWebSocketFrame) {
+            CmdRouter cmdRouter = cmdHandler.handleBinary((BinaryWebSocketFrame) frame, userInfo);
+            routerResponse(cmdRouter, channel);
+        } else if (frame instanceof CloseWebSocketFrame) {
+            // wsShakerHandler.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
         }
     }
 

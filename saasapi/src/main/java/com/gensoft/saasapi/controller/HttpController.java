@@ -6,6 +6,7 @@ import com.gensoft.core.sms.JavaSmsApi;
 import com.gensoft.core.web.ApiResult;
 import com.gensoft.dao.user.User;
 import com.gensoft.dao.verification.VerificationCode;
+import com.gensoft.saasapi.cache.UserInfoCache;
 import com.gensoft.saasapi.pojo.user.RegisterReq;
 import com.gensoft.saasapi.pojo.user.ResetPasswordReq;
 import com.gensoft.saasapi.service.UserService;
@@ -33,6 +34,9 @@ public class HttpController {
     @Autowired
     VerificationService verificationService;
 
+    @Autowired
+    UserInfoCache userInfoCache;
+
     @Value("${monitor.homeMessage}")
     private String homeMessage;
 
@@ -49,12 +53,16 @@ public class HttpController {
         }
         Long mobile = req.getMobile();
         if (userService.getUserByMobile(mobile))
-            ApiResult.failedInstance("register", ApiResult.CODE_OBJECT_ALREADY_EXISTS);
+            ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);
+        String username = req.getUsername();
+        if(null != userService.getUserByName(username))
+            if (userService.getUserByMobile(mobile))
+                ApiResult.failedInstance("register", ApiResult.CODE_USERNAME_ALREADY_EXISTS);
         String verificationCode = req.getVerificationCode();
         if(!"no".equals(verificationCode) && verificationService.invalidVerificationCode(mobile,verificationCode,1))
             ApiResult.failedInstance("register", ApiResult.CODE_INVALIDE_VERIFICATION_CODE);
         User user = new User();
-        user.setUsername(req.getUsername());
+        user.setUsername(username);
         user.setNickname(req.getNickname());
         user.setPassword(req.getPassword());
         user.setMobile(mobile);
@@ -63,6 +71,7 @@ public class HttpController {
         user.setUpdateDate(new Date());
         user.setCreateDate(new Date());
         userService.register(user);
+        userInfoCache.refreshUserMap();
         return ApiResult.successInstance("register", user);
     }
 
@@ -85,8 +94,5 @@ public class HttpController {
         //JavaSmsApi.send(text, mobile.toString());
         return ApiResult.successInstance("getVerificationCode", verificationCode);
     }
-
-
-
 
 }

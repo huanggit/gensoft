@@ -37,7 +37,8 @@ CREATE TABLE `user_friends` (
   create_date DATE DEFAULT NULL COMMENT '创建时间',
   update_by_id int(15) DEFAULT NULL COMMENT '更新者',
   update_date DATE DEFAULT NULL COMMENT '更新时间',
-  INDEX user_friends_user_id (user_id)
+  INDEX user_friends_user_id (user_id),
+  INDEX user_friends_user_friend_id (user_id, friend_id)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8  COMMENT '用户好友表';
 
 

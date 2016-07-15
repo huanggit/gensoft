@@ -35,95 +35,127 @@ var jsondata = [
         }
     },
     {
-        "apiname": "重置密码",
-        "apiurl": "/resetPassword",
-        "apitype": "post",
-        "info": {
-            "mobile":"18013955700"
-        }
-        
-    },
-    {
-        "apiname": "更新用户信息",
-        "apiurl": "modifyInfo",
-        "apitype": "ws",
-        "info": {
-        	"nickname":"test1",
-            "plateNo":"111",
-            "mobile":"1111",
-            "logo":"test"
-            
-        }
-    },
-    
-    {
         "apiname": "根据昵称查询用户",
-        "apiurl": "findLikeName",
+        "apiurl": "findUsersLikeName",
         "apitype": "ws",
         "info": {
             "keyword":"te"
         }
     },
     {
-        "apiname": "查询所有用户",
-        "apiurl": "/user/listAll",
-        "apitype": "post",
-        
+        "apiname": "更新用户信息",
+        "apiurl": "modifyUserInfo",
+        "apitype": "ws",
+        "info": {
+            "nickname":"changed",
+            "plateNo":"苏A 22222",
+            "mobile":"11113343222",
+            "logo":"test"
+
+        }
     },
     {
-        "apiname": "查询当前好友",
-        "apiurl": "/friends/listMine",
-        "apitype": "get"
-        
+        "apiname": "查询所有用户",
+        "apiurl": "listAllUsers",
+        "apitype": "ws",
+        "info": {
+        }
+    },
+    {
+        "apiname": "查询我的好友",
+        "apiurl": "listMyFriends",
+        "apitype": "ws",
+        "info": {
+        }
     },
     {
         "apiname": "添加好友",
-        "apiurl": "/friends/add",
-        "apitype": "post",
+        "apiurl": "addFriend",
+        "apitype": "ws",
         "info": {
-            "friendId":"1"
+            "friendId": 1
         }
     },
     {
         "apiname": "删除好友",
-        "apiurl": "/friends/delete",
-        "apitype": "post",
+        "apiurl": "deleteFriend",
+        "apitype": "ws",
         "info": {
-            "friendId":"1"
+            "friendId": 1
+        }
+    },
+    {
+        "apiname": "查询群组标签",
+        "apiurl": "listGroupTags",
+        "apitype": "ws",
+        "info": {
+        }
+    },
+    {
+        "apiname": "添加群组",
+        "apiurl": "addGroup",
+        "apitype": "ws",
+        "info": {
+            "name":"testGroup",
+            "descipt":"for test",
+            "tagId":"1"
         }
     },
     {
         "apiname": "我的群组",
-        "apiurl": "/group/listMine",
-        "apitype": "get"
+        "apiurl": "listMyGroup",
+        "apitype": "ws",
+        "info": {
+        }
     },
     {
-        "apiname": "添加群组",
-        "apiurl": "/group/add",
-        "apitype": "post",
+        "apiname": "群组信息",
+        "apiurl": "groupDetail",
+        "apitype": "ws",
         "info": {
-                 "name":"aaa",
-                 "descipt":"aa",
-                 "tagId":"1"
-             }
+            "groupId": 1
+        }
     },
     {
         "apiname": "删除群组",
-        "apiurl": "/group/delete",
-        "apitype": "post",
+        "apiurl": "deleteGroup",
+        "apitype": "ws",
         "info": {
-            "groupId":"1"
-            
+            "groupId": 1
         }
     },
     {
         "apiname": "添加群用户",
-        "apiurl": "/group/addUserToGroup",
-        "apitype": "post",
+        "apiurl": "addUserToGroup",
+        "apitype": "ws",
         "info": {
-            "groupId":"1",
-            "userIds":"1,2,3"
-            
+            "groupId": 1,
+            "userId": 2
+
+        }
+    },
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+    {
+        "apiname": "重置密码",
+        "apiurl": "resetUserPassword",
+        "apitype": "ws",
+        "info": {
+            "mobile":"18013955700"
         }
     }
 ]
