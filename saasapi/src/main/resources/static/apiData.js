@@ -11,7 +11,7 @@ var jsondata = [
             "password":"123456",
             "mobile":"18013955700",
             "plateNo":"苏A 199BS2",
-            "verificationCode":"code"
+            "verificationCode":"noCode"
         }
     }    ,
     

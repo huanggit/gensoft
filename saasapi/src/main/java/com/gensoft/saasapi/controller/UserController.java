@@ -41,7 +41,7 @@ public class UserController {
 
     public ApiResult modifyUserInfo(@Login UserInfo userInfo, @RequestBody ModifyUserInfoReq req) throws BusinessException {
         Long mobile = req.getMobile();
-        if (userService.getUserByMobile(mobile))
+        if (userService.existsUserMobile(mobile))
             throw new BusinessException(ApiResult.CODE_MOBILE_ALREADY_EXISTS);
         User user = userService.getUserById(userInfo.getId());
         user.setNickname(req.getNickname());

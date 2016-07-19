@@ -38,11 +38,6 @@ public class HttpController {
     @Autowired
     VerificationService verificationService;
 
-    @Autowired
-    UserInfoCache userInfoCache;
-
-    @Autowired
-    FileUtil fileUtil;
 
     @Value("${monitor.homeMessage}")
     private String homeMessage;
@@ -55,62 +50,18 @@ public class HttpController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     ApiResult register(@RequestBody RegisterReq req, @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
-        Long mobile = req.getMobile();
-        if (userService.getUserByMobile(mobile))
-            ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);
-        String username = req.getUsername();
-        if(null != userService.getUserByName(username))
-            if (userService.getUserByMobile(mobile))
-                ApiResult.failedInstance("register", ApiResult.CODE_USERNAME_ALREADY_EXISTS);
-        String verificationCode = req.getVerificationCode();
-        if(!"no".equals(verificationCode) && verificationService.invalidVerificationCode(mobile,verificationCode,1))
-            ApiResult.failedInstance("register", ApiResult.CODE_INVALIDE_VERIFICATION_CODE);
-        User user = new User();
-        user.setUsername(username);
-        user.setNickname(req.getNickname());
-        user.setPassword(req.getPassword());
-        user.setMobile(mobile);
-        if(file != null) {
-            String logoPath = fileUtil.saveFileToPath(file);
-            user.setLogo(logoPath);
-        }
-        user.setPlateNo(req.getPlateNo());
-        user.setUpdateDate(new Date());
-        user.setCreateDate(new Date());
-        userService.register(user);
-        userInfoCache.refreshUserMap();
-        return ApiResult.successInstance("register", user);
+        return userService.register(req, file);
     }
 
     @RequestMapping(value = "/registerNoLogo", method = RequestMethod.POST)
     ApiResult registerNoLogo(@RequestBody RegisterReq req) throws BusinessException {
-        Long mobile = req.getMobile();
-        if (userService.getUserByMobile(mobile))
-            ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);
-        String username = req.getUsername();
-        if(null != userService.getUserByName(username))
-            if (userService.getUserByMobile(mobile))
-                ApiResult.failedInstance("register", ApiResult.CODE_USERNAME_ALREADY_EXISTS);
-        String verificationCode = req.getVerificationCode();
-        if(!"no".equals(verificationCode) && verificationService.invalidVerificationCode(mobile,verificationCode,1))
-            ApiResult.failedInstance("register", ApiResult.CODE_INVALIDE_VERIFICATION_CODE);
-        User user = new User();
-        user.setUsername(username);
-        user.setNickname(req.getNickname());
-        user.setPassword(req.getPassword());
-        user.setMobile(mobile);
-        user.setPlateNo(req.getPlateNo());
-        user.setUpdateDate(new Date());
-        user.setCreateDate(new Date());
-        userService.register(user);
-        userInfoCache.refreshUserMap();
-        return ApiResult.successInstance("register", user);
+        return userService.register(req, null);
     }
 
     @RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
     ApiResult existsMobile(@RequestBody Map<String, Object> map) {
         Long mobile = (Long) map.get("mobile");
-        Boolean exists = userService.getUserByMobile(mobile);
+        Boolean exists = userService.existsUserMobile(mobile);
         return ApiResult.successInstance("existsMobile", exists);
     }
 
