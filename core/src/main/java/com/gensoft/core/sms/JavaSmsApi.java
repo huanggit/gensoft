@@ -77,10 +77,5 @@ public class JavaSmsApi{
 		}
 		return responseText;
 	}
-	
-	public static void main(String[] args) {
-		String text = "【AUTOPET智能客户端】您已注册AUTOPET智能车载客户端，验证码为111111。如非本人操作，请忽略本短信";
-		// 发短信调用示例
-		System.out.println(JavaSmsApi.send(text, "15210924425"));
-	}
+
 }

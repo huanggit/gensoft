@@ -4,6 +4,7 @@ import com.gensoft.core.annotation.Login;
 import com.gensoft.core.pojo.UserInfo;
 import com.gensoft.core.sms.JavaSmsApi;
 import com.gensoft.core.web.ApiResult;
+import com.gensoft.core.web.BusinessException;
 import com.gensoft.dao.user.User;
 import com.gensoft.dao.verification.VerificationCode;
 import com.gensoft.saasapi.cache.UserInfoCache;
@@ -11,10 +12,12 @@ import com.gensoft.saasapi.pojo.user.RegisterReq;
 import com.gensoft.saasapi.pojo.user.ResetPasswordReq;
 import com.gensoft.saasapi.service.UserService;
 import com.gensoft.saasapi.service.VerificationService;
+import com.gensoft.saasapi.util.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,6 +41,9 @@ public class HttpController {
     @Autowired
     UserInfoCache userInfoCache;
 
+    @Autowired
+    FileUtil fileUtil;
+
     @Value("${monitor.homeMessage}")
     private String homeMessage;
 
@@ -48,7 +54,7 @@ public class HttpController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    ApiResult register(@RequestBody RegisterReq req) {
+    ApiResult register(@RequestBody RegisterReq req, @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
         Long mobile = req.getMobile();
         if (userService.getUserByMobile(mobile))
             ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);
@@ -64,7 +70,35 @@ public class HttpController {
         user.setNickname(req.getNickname());
         user.setPassword(req.getPassword());
         user.setMobile(mobile);
-        user.setLogo(req.getLogo());
+        if(file != null) {
+            String logoPath = fileUtil.saveFileToPath(file);
+            user.setLogo(logoPath);
+        }
+        user.setPlateNo(req.getPlateNo());
+        user.setUpdateDate(new Date());
+        user.setCreateDate(new Date());
+        userService.register(user);
+        userInfoCache.refreshUserMap();
+        return ApiResult.successInstance("register", user);
+    }
+
+    @RequestMapping(value = "/registerNoLogo", method = RequestMethod.POST)
+    ApiResult registerNoLogo(@RequestBody RegisterReq req) throws BusinessException {
+        Long mobile = req.getMobile();
+        if (userService.getUserByMobile(mobile))
+            ApiResult.failedInstance("register", ApiResult.CODE_MOBILE_ALREADY_EXISTS);
+        String username = req.getUsername();
+        if(null != userService.getUserByName(username))
+            if (userService.getUserByMobile(mobile))
+                ApiResult.failedInstance("register", ApiResult.CODE_USERNAME_ALREADY_EXISTS);
+        String verificationCode = req.getVerificationCode();
+        if(!"no".equals(verificationCode) && verificationService.invalidVerificationCode(mobile,verificationCode,1))
+            ApiResult.failedInstance("register", ApiResult.CODE_INVALIDE_VERIFICATION_CODE);
+        User user = new User();
+        user.setUsername(username);
+        user.setNickname(req.getNickname());
+        user.setPassword(req.getPassword());
+        user.setMobile(mobile);
         user.setPlateNo(req.getPlateNo());
         user.setUpdateDate(new Date());
         user.setCreateDate(new Date());

@@ -56,7 +56,8 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
-        cause.printStackTrace();
+        logger.error("channel exception: {}.", cause);
+        userInfoCache.removeChannel(ctx.channel());
         ctx.close();
     }
 
@@ -91,8 +92,10 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
         UserInfo userInfo = loginAuth.authUser(authInfo);
 
         if (userInfo == null) {
-            wsShakerFactory.sendUnsupportedVersionResponse(channel);
             logger.info("ip {} failed login.", userIp);
+            ChannelFuture f = channel.writeAndFlush(new DefaultFullHttpResponse(
+                    HttpVersion.HTTP_1_1, HttpResponseStatus.BAD_REQUEST));
+            f.addListener(ChannelFutureListener.CLOSE);
             return;
         }
 
@@ -128,19 +131,20 @@ public class WebSocketCharServerHandler extends SimpleChannelInboundHandler<Obje
                                        WebSocketFrame frame) throws IOException {
         Channel channel = ctx.channel();
         UserInfo userInfo = userInfoCache.getUserByChannel(channel);
-        // 判断是否ping消息
-        if (frame instanceof PingWebSocketFrame) {
-            channel.write(new PongWebSocketFrame(frame.content().retain()));
-            return;
-        } else if (frame instanceof TextWebSocketFrame) {
+        if (frame instanceof TextWebSocketFrame) {
             CmdRouter cmdRouter = cmdHandler.handleText((TextWebSocketFrame) frame, userInfo);
             routerResponse(cmdRouter, channel);
         } else if (frame instanceof BinaryWebSocketFrame) {
             CmdRouter cmdRouter = cmdHandler.handleBinary((BinaryWebSocketFrame) frame, userInfo);
             routerResponse(cmdRouter, channel);
-        } else if (frame instanceof CloseWebSocketFrame) {
-            // wsShakerHandler.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
         }
+//        else if (frame instanceof PingWebSocketFrame) {
+//            channel.write(new PongWebSocketFrame(frame.content().retain()));
+//            return;
+//            // 判断是否ping消息
+//        } else if (frame instanceof CloseWebSocketFrame) {
+//            // wsShakerHandler.close(ctx.channel(), (CloseWebSocketFrame) frame.retain());
+//        }
     }
 
     private void routerResponse(CmdRouter cmdRouter, Channel channel) {

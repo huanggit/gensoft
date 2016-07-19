@@ -4,6 +4,8 @@ import com.gensoft.core.web.ApiResult;
 import com.gensoft.core.web.BusinessException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 
@@ -72,7 +74,25 @@ public class FileUtil {
         if (!dir.exists())
             dir.mkdirs();
         long epoch = System.currentTimeMillis() / 1000;
-        File newfile = new File(dir.getPath() + epoch + name);
-        return newfile;
+        File newFile = new File(dir.getPath() + epoch + name);
+        return newFile;
+    }
+
+    public String saveFileToPath(MultipartFile multipartFile) throws BusinessException {
+        try {
+            byte[] bytes = multipartFile.getBytes();
+            long size = bytes.length;
+            if (size >= 1048576) throw new BusinessException(ApiResult.CODE_FILE_SIZE_EXCEEDS_1_M);
+            String fileName = multipartFile.getName();
+            int index = fileName.lastIndexOf(".");
+            String prefix = fileName.substring(index);
+            if (!prefix.endsWith("jpg"))
+                throw new BusinessException(ApiResult.CODE_FILE_INVALID_FORMAT);
+            File newFile = createNewFile(prefix);
+            FileCopyUtils.copy(bytes, newFile);
+            return newFile.getPath();
+        } catch (IOException e) {
+            throw new BusinessException(ApiResult.CODE_FILE_SAVE_ERROR);
+        }
     }
 }

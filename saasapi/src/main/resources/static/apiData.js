@@ -3,13 +3,12 @@ var jsondata = [
 
     {
         "apiname": "注册(http)",
-        "apiurl": "/register",
+        "apiurl": "/registerNoLogo",
         "apitype": "post",
         "info": {
             "username":"test1",
             "nickname":"nickname",
             "password":"123456",
-            "logo":"aa.jpg",
             "mobile":"18013955700",
             "plateNo":"苏A 199BS2",
             "verificationCode":"code"
@@ -31,6 +30,15 @@ var jsondata = [
         "apitype": "post",
         "info": {
             "mobile": 18013955700
+        }
+    },
+    {
+        "apiname": "gps心跳包",
+        "apiurl": "gps",
+        "apitype": "ws",
+        "info": {
+            "lat": 15.22,
+            "lon": 88.24
         }
     },
     {
