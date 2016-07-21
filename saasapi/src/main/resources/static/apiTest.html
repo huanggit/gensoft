@@ -21,8 +21,8 @@
    	 $.ajax({
             type: $("#txtreq").attr("apitype"),
             url: $("#txtreq").attr("apiurl") ,
-            contentType: "application/json; charset=utf-8",  
-            data: $("#txtreq").val(),
+            //contentType: "application/json; charset=utf-8",
+            data: $.parseJSON($("#txtreq").val()),
             success: function(data){
                 $("#txtres").val(JSON.stringify(data))
             }

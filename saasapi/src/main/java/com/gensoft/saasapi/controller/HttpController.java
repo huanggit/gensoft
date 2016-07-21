@@ -48,32 +48,36 @@ public class HttpController {
         return homeMessage;
     }
 
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    ApiResult register(@RequestBody RegisterReq req, @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
+    ApiResult register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("nickname") String nickname,
+                       @RequestParam("verificationCode") String verificationCode, @RequestParam(value = "plateNo", required = false) String plateNo,
+                       @RequestParam("mobile") Long mobile, @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
+        RegisterReq req = new RegisterReq();
+        req.setUsername(username);
+        req.setPassword(password);
+        req.setNickname(nickname);
+        req.setMobile(mobile);
+        req.setVerificationCode(verificationCode);
+        if (null != plateNo)
+            req.setPlateNo(plateNo);
         return userService.register(req, file);
     }
 
-    @RequestMapping(value = "/registerNoLogo", method = RequestMethod.POST)
-    ApiResult registerNoLogo(@RequestBody RegisterReq req) throws BusinessException {
-        return userService.register(req, null);
-    }
-
     @RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
-    ApiResult existsMobile(@RequestBody Map<String, Object> map) {
-        Long mobile = (Long) map.get("mobile");
+    ApiResult existsMobile(@RequestParam("mobile") Long mobile) {
         Boolean exists = userService.existsUserMobile(mobile);
         return ApiResult.successInstance("existsMobile", exists);
     }
 
     @RequestMapping(value = "/getVerificationCode", method = RequestMethod.POST)
-    ApiResult<String> getVerificationCode(@RequestBody Map<String, Object> map) {
+    ApiResult<String> getVerificationCode(@RequestParam("mobile") Long mobile) {
         Random rand = new Random();
         Integer result = 100000 + rand.nextInt(900000);
         String verificationCode = result.toString();
         // 设置您要发送的内容(内容必须和某个模板匹配。以下例子匹配的是系统提供的1号模板）
         String text = "【南京绅软】您已注册南京绅软智能车载客户端，验证码为" + verificationCode + "。如非本人操作，请忽略本短信";
-        Long mobile = (Long) map.get("mobile");
-        verificationService.saveVerificationCode(mobile,verificationCode,1);
+        verificationService.saveVerificationCode(mobile, verificationCode, 1);
         JavaSmsApi.send(text, mobile.toString());
         return ApiResult.successInstance("getVerificationCode", verificationCode);
     }
