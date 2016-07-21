@@ -42,6 +42,7 @@ subprojects {
                 'org.springframework.boot:spring-boot-starter-cache',
                 //'org.springframework.boot:spring-boot-starter-redis',
                 'mysql:mysql-connector-java:6.0.2'
+
         )
         testCompile("org.springframework.boot:spring-boot-starter-test")
     }

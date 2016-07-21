@@ -1,6 +1,7 @@
 package com.gensoft.saasapi.config;
 
 import com.gensoft.core.mvc.interceptor.AuthenticateInterceptor;
+import com.gensoft.core.mvc.interceptor.LoggerInterceptor;
 import com.gensoft.core.mvc.resolver.LoginedArgumentResolver;
 import com.gensoft.core.mvc.resolver.SaasHandlerExceptionResolver;
 import org.springframework.context.annotation.Bean;
@@ -14,31 +15,38 @@ import java.util.List;
 /**
  * Created by alan on 16-5-25.
  */
-//@Configuration
+@Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter {
 
     @Bean
-    SaasHandlerExceptionResolver saasHandlerExceptionResolver(){
-        return new SaasHandlerExceptionResolver();
-    }
-
-    @Bean
-    AuthenticateInterceptor authenticateInterceptor() {
-        return new AuthenticateInterceptor();
-    }
-
-    @Bean
-    public LoginedArgumentResolver loginedArgumentResolver(){
-        return new LoginedArgumentResolver();
+    LoggerInterceptor loggerInterceptor() {
+        return new LoggerInterceptor();
     }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(authenticateInterceptor());
+        registry.addInterceptor(loggerInterceptor());
     }
 
-    @Override
-    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
-        argumentResolvers.add(loginedArgumentResolver());
-    }
+    //@Bean
+    //SaasHandlerExceptionResolver saasHandlerExceptionResolver(){
+//        return new SaasHandlerExceptionResolver();
+//    }
+
+//    @Bean
+//    AuthenticateInterceptor authenticateInterceptor() {
+//        return new AuthenticateInterceptor();
+//    }
+
+
+//    @Bean
+//    public LoginedArgumentResolver loginedArgumentResolver(){
+//        return new LoginedArgumentResolver();
+//    }
+
+
+//    @Override
+//    public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
+//        argumentResolvers.add(loginedArgumentResolver());
+//    }
 }

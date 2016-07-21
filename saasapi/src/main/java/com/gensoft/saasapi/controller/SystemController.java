@@ -27,7 +27,7 @@ public class SystemController {
 
     public String gps(@Login UserInfo userInfo, @RequestParam("lat") Double latitude, @RequestParam("lan") Double longitude) {
         //// TODO: 16-7-19 save gsp info
-        System.out.println(latitude+","+longitude);
+        //System.out.println(latitude+","+longitude);
         return "ok";
     }
 

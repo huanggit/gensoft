@@ -21,7 +21,6 @@ public class LoginAuth {
     }
 
     private NameAndPasswd decode(String encryptedCode){
-        //TODO
         String[] tmp = encryptedCode.split("\\+");
         NameAndPasswd result = new NameAndPasswd(tmp[0],tmp[1]);
         return result;

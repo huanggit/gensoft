@@ -9,7 +9,7 @@ var jsondata = [
             "username":"test1",
             "nickname":"nickname",
             "password":"123456",
-            "mobile":"18013955700",
+            "mobile": 18013955701,
             "plateNo":"苏A 199BS2",
             "verificationCode":"noCode"
         }
@@ -29,7 +29,7 @@ var jsondata = [
         "apiurl": "/getVerificationCode",
         "apitype": "post",
         "info": {
-            "mobile": 18013955700
+            "mobile": 18013955701
         }
     },
     {
@@ -46,7 +46,7 @@ var jsondata = [
         "apiurl": "findUsersLikeName",
         "apitype": "ws",
         "info": {
-            "keyword":"te"
+            "keyword":"e"
         }
     },
     {

@@ -74,7 +74,7 @@ public class HttpController {
         String text = "【南京绅软】您已注册南京绅软智能车载客户端，验证码为" + verificationCode + "。如非本人操作，请忽略本短信";
         Long mobile = (Long) map.get("mobile");
         verificationService.saveVerificationCode(mobile,verificationCode,1);
-        //JavaSmsApi.send(text, mobile.toString());
+        JavaSmsApi.send(text, mobile.toString());
         return ApiResult.successInstance("getVerificationCode", verificationCode);
     }
 

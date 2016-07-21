@@ -8,9 +8,6 @@
 <script src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
 
-    var wsUri ="ws://localhost:8999/test+test";
-    //var wsUri ="ws://112.124.96.198:8999/test+test";
-
     $(document).ready(function(){
         for(var i=0;i<jsondata.length;i++){
             var lititle = "<li><a href='javascript:void(0);'>"+jsondata[i].apiname+"</a></li>";
@@ -25,7 +22,7 @@
             type: $("#txtreq").attr("apitype"),
             url: $("#txtreq").attr("apiurl") ,
             contentType: "application/json; charset=utf-8",  
-            data: $("#txtreq").val(),//'{"username":"a","password":"a"}',//'{'+ajdata+'}',
+            data: $("#txtreq").val(),
             success: function(data){
                 $("#txtres").val(JSON.stringify(data))
             }
@@ -46,8 +43,8 @@
     }
     
     
-    function initws() { 
-     
+    function initws() {
+        wsUri ="ws://"+$("#txthost").val()+":8999/"+$("#txtname").val()+"+"+$("#txtpasswd").val();
         websocket = new WebSocket(wsUri); 
         websocket.onopen = function(evt) { 
             onOpen(evt) 
@@ -103,16 +100,7 @@
     
   
     
-    
-    
-    
-    
-    
-   
-    
-  
- 
- 
+
  
 </script>
 <body>
@@ -128,6 +116,10 @@
         </td>
         <td width="805">
             <div>
+                <textarea id="txthost" cols="50" rows="1">112.124.96.198</textarea>
+                <textarea id="txtname" cols="25" rows="1">test</textarea>
+                <textarea id="txtpasswd" cols="25" rows="1">test</textarea>
+
                 <textarea id="txturl" cols="100" rows="2"></textarea>
                 <textarea id="txtreq" cols="100" rows="18"></textarea>
             </div>
