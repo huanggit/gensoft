@@ -84,11 +84,13 @@ public class FileUtil {
             long size = bytes.length;
             if (size >= 1048576) throw new BusinessException(ApiResult.CODE_FILE_SIZE_EXCEEDS_1_M);
             String fileName = multipartFile.getName();
-            int index = fileName.lastIndexOf(".");
-            String prefix = fileName.substring(index);
-            if (!prefix.endsWith("jpg"))
-                throw new BusinessException(ApiResult.CODE_FILE_INVALID_FORMAT);
-            File newFile = createNewFile(prefix);
+//            int index = fileName.lastIndexOf(".");
+//            if(index<0)
+//                throw new BusinessException(ApiResult.CODE_FILE_INVALID_FORMAT);
+//            String prefix = fileName.substring(index);
+//            if (!prefix.endsWith("jpg"))
+//                throw new BusinessException(ApiResult.CODE_FILE_INVALID_FORMAT);
+            File newFile = createNewFile(fileName);
             FileCopyUtils.copy(bytes, newFile);
             return newFile.getPath();
         } catch (IOException e) {

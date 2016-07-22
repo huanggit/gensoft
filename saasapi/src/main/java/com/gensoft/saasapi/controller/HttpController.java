@@ -64,6 +64,21 @@ public class HttpController {
         return userService.register(req, file);
     }
 
+    @RequestMapping(value = "/registerNoLogo", method = RequestMethod.POST)
+    ApiResult register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("nickname") String nickname,
+                       @RequestParam("verificationCode") String verificationCode, @RequestParam(value = "plateNo", required = false) String plateNo,
+                       @RequestParam("mobile") Long mobile) throws BusinessException {
+        RegisterReq req = new RegisterReq();
+        req.setUsername(username);
+        req.setPassword(password);
+        req.setNickname(nickname);
+        req.setMobile(mobile);
+        req.setVerificationCode(verificationCode);
+        if (null != plateNo)
+            req.setPlateNo(plateNo);
+        return userService.register(req, null);
+    }
+
     @RequestMapping(value = "/existsMobile", method = RequestMethod.POST)
     ApiResult existsMobile(@RequestParam("mobile") Long mobile) {
         Boolean exists = userService.existsUserMobile(mobile);
