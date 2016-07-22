@@ -20,7 +20,7 @@ monitor:
 server:
   port: 8091
   address: localhost
-  #address: 192.168.1.102
+  #address: 192.168.1.199
   contextPath: /
 
 management:
@@ -31,7 +31,7 @@ management:
 
 spring:
   datasource:
-    url: jdbc:mysql://192.168.1.123:3306/gensoft?useLegacyDatetimeCode=false&serverTimezone=CST&useSSL=false&autoReconnect=true
+    url: jdbc:mysql://192.168.1.88:3306/gensoft?useLegacyDatetimeCode=false&serverTimezone=CST&useSSL=false&autoReconnect=true
     username: root
     password: password
     driver-class-name: com.mysql.cj.jdbc.Driver
