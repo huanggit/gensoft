@@ -50,14 +50,16 @@ public class HttpController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    ApiResult register(@RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("nickname") String nickname,
+    ApiResult register(@RequestParam("username") String username, @RequestParam("password") String password,
                        @RequestParam("verificationCode") String verificationCode, @RequestParam(value = "plateNo", required = false) String plateNo,
-                       @RequestParam("mobile") Long mobile, @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
+                       @RequestParam("mobile") Long mobile, @RequestParam("deviceId") Long deviceId, @RequestParam("nickname") String nickname,
+                       @RequestParam(value = "file", required = false) MultipartFile file) throws BusinessException {
         RegisterReq req = new RegisterReq();
         req.setUsername(username);
         req.setPassword(password);
         req.setNickname(nickname);
         req.setMobile(mobile);
+        req.setDeviceId(deviceId);
         req.setVerificationCode(verificationCode);
         if (null != plateNo)
             req.setPlateNo(plateNo);

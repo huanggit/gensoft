@@ -58,6 +58,7 @@ public class UserService {
             user.setLogo(logoPath);
         }
         user.setPlateNo(req.getPlateNo());
+        user.setBindDeviceId(req.getDeviceId());
         user.setUpdateDate(new Date());
         user.setCreateDate(new Date());
         userRepository.save(user);

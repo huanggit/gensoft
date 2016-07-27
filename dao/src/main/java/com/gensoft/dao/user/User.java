@@ -4,6 +4,7 @@ package com.gensoft.dao.user;
  * Created by alan on 16-5-18.
  */
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gensoft.dao.BaseEntity;
 import com.gensoft.dao.usergroups.UserGroup;
 
@@ -23,6 +24,7 @@ public class User extends BaseEntity {
 
     @NotNull
     private String username;
+    @JsonIgnore
     @NotNull
     private String password;
     @NotNull

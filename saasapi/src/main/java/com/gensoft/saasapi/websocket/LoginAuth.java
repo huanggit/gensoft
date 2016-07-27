@@ -16,30 +16,49 @@ public class LoginAuth {
     UserService userService;
 
     public UserInfo authUser(String encryptedCode){
-        NameAndPasswd nameAndPasswd = decode(encryptedCode);
-        return validateUser(nameAndPasswd);
+        logInfo logInfo = decode(encryptedCode);
+        return validateUser(logInfo);
     }
 
-    private NameAndPasswd decode(String encryptedCode){
+    private logInfo decode(String encryptedCode){
         String[] tmp = encryptedCode.split("\\+");
-        NameAndPasswd result = new NameAndPasswd(tmp[0],tmp[1]);
+        logInfo result = new logInfo(tmp[0],tmp[1],null);
         return result;
+//        if(tmp.length < 3) return null;
+//         Long deviceId;
+//        try{
+//            deviceId = Long.parseLong(tmp[0]);
+//        }catch (Exception e){
+//            return null;
+//        }
+//        String password=tmp[1];
+//        StringBuffer username = new StringBuffer();
+//        for(int i=2;i<tmp.length;i++) {
+//            username.append(tmp[i]);
+//        }
+//        logInfo result = new logInfo(username.toString(),password,deviceId);
+//        return result;
     }
 
-    private UserInfo validateUser(NameAndPasswd nameAndPasswd){
-        User user = userService.getUserByName(nameAndPasswd.username);
-        if (user == null || !user.getPassword().equals(nameAndPasswd.password))
+    private UserInfo validateUser(logInfo logInfo){
+        if(logInfo==null)return null;
+        User user = userService.getUserByName(logInfo.username);
+        if (user == null || !user.getPassword().equals(logInfo.password))
             return null;
+//        if(user.getBindDeviceId()!=logInfo.deviceid)
+//            return null;
         return new UserInfo(user);
     }
 
-    class NameAndPasswd {
+    class logInfo {
         protected String username;
         protected String password;
+        protected Long deviceid;
 
-        public NameAndPasswd (String name, String passwd){
+        public  logInfo(String name, String passwd, Long deviceid ){
             this.username = name;
             this.password = passwd;
+            this.deviceid = deviceid;
         }
     }
 }

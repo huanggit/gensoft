@@ -40,7 +40,7 @@ public class ChatController {
         return history;
     }
 
-    public List<GroupChat> groupChatDetail(@RequestParam("userId") Long groupId) {
+    public List<GroupChat> groupChatDetail(@RequestParam("groupId") Long groupId) {
         List<GroupChat> history = chatService.groupChatHistory(groupId);
         return history;
     }

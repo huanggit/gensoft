@@ -21,6 +21,8 @@ public class RegisterReq {
 
     private String logo;
 
+    private Long deviceId;
+
     public String getUsername() {
         return username;
     }
@@ -75,5 +77,13 @@ public class RegisterReq {
 
     public void setPlateNo(String plateNo) {
         this.plateNo = plateNo;
+    }
+
+    public Long getDeviceId() {
+        return deviceId;
+    }
+
+    public void setDeviceId(Long deviceId) {
+        this.deviceId = deviceId;
     }
 }

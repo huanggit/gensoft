@@ -39,6 +39,11 @@ public class UserController {
     @Autowired
     UserInfoCache userInfoCache;
 
+    public User getUserInfo(@Login UserInfo userInfo) throws BusinessException {
+        User user = userService.getUserById(userInfo.getId());
+        return user;
+    }
+
     public ApiResult modifyUserInfo(@Login UserInfo userInfo, @RequestBody ModifyUserInfoReq req) throws BusinessException {
         Long mobile = req.getMobile();
         if (userService.existsUserMobile(mobile))

@@ -12,7 +12,7 @@ CREATE TABLE users (
   nickname varchar(15) NOT NULL COMMENT '用户昵称',
   mobile BIGINT(12) NOT NULL COMMENT '用户手机',
   logo varchar(50) DEFAULT NULL COMMENT '用户头像',
-  bind_device_id int(15) DEFAULT NULL COMMENT '绑定设备id',
+  bind_device_id BIGINT(15) DEFAULT NULL COMMENT '绑定设备id',
   create_by_id int(15) DEFAULT NULL COMMENT '创建者',
   create_date DATETIME DEFAULT NULL COMMENT '创建时间',
   update_by_id int(15) DEFAULT NULL COMMENT '更新者',
@@ -22,7 +22,7 @@ CREATE TABLE users (
 
 DROP TABLE IF EXISTS `devices`;
 CREATE TABLE `devices` (
-  id int(15) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  id BIGINT NOT NULL PRIMARY KEY COMMENT 'IMEI',
   status int(2) NOT NULL DEFAULT 1 COMMENT '是否有效,0无效，1有效',
   create_by_id int(15) DEFAULT NULL COMMENT '创建者',
   create_date DATETIME DEFAULT NULL COMMENT '创建时间',

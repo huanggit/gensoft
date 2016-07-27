@@ -11,6 +11,7 @@ var jsondata = [
             "password":"123456",
             "mobile": 18013955701,
             "plateNo":"苏A 199BS2",
+            "deviceId": 180139557014321,
             "verificationCode":"noCode"
         }
     }    ,
@@ -39,6 +40,13 @@ var jsondata = [
         "info": {
             "lat": 15.22,
             "lon": 88.24
+        }
+    },
+    {
+        "apiname": "查询用户自己的信息",
+        "apiurl": "getUserInfo",
+        "apitype": "ws",
+        "info": {
         }
     },
     {
@@ -149,6 +157,57 @@ var jsondata = [
             "filePath": "/tmp/saasapi/1.txt"
         }
     },
+
+    {
+        "apiname": "用户聊天记录",
+        "apiurl": "chatsList",
+        "apitype": "ws",
+        "info": {
+
+        }
+    },
+
+    {
+        "apiname": "查询与某用户的聊天记录",
+        "apiurl": "userChatDetail",
+        "apitype": "ws",
+        "info": {
+            "userId": 2
+        }
+    },
+
+    {
+        "apiname": "查询某聊天组的聊天记录",
+        "apiurl": "groupChatDetail",
+        "apitype": "ws",
+        "info": {
+            "groupId": 1
+        }
+    },
+
+    {
+        "apiname": "向某用户发送聊天信息",
+        "apiurl": "userChat",
+        "apitype": "ws",
+        "info": {
+            "isVoice": 0,
+            "content": "hello, there!",
+            "receiverId": 2
+        }
+    },
+
+    {
+        "apiname": "向某聊天组发送聊天信息",
+        "apiurl": "groupChat",
+        "apitype": "ws",
+        "info": {
+            "isVoice": 0,
+            "content": "hello, there!",
+            "receiverId": 1
+        }
+    },
+
+
 
 
 
