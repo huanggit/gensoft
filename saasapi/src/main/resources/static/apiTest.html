@@ -34,10 +34,17 @@
         $("a").each(function(i,v){
             $(this).click(function(){
                 $("#txtres").val('');
-                $("#txtreq").val(JSON.stringify(jsondata[i].info));
-                $("#txturl").val(JSON.stringify(jsondata[i].apiurl));
+                thistype = jsondata[i].apitype;
+                thisinfo = JSON.stringify(jsondata[i].info);
+                thisurl = JSON.stringify(jsondata[i].apiurl)
                 $("#txtreq").attr("apiurl", jsondata[i].apiurl);
-                $("#txtreq").attr("apitype", jsondata[i].apitype);
+                $("#txtreq").attr("apitype", thistype);
+                if(thistype=="ws"){
+                    $("#txtreq").val("{\"cmd\":\""+thisurl+"\",\"params\":"+thisinfo+"}");
+                }else{
+                $("#txtreq").val(thisinfo);
+                $("#txturl").val(thisurl);
+                }
             })
         })
     }
